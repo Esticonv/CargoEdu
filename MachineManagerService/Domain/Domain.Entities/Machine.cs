@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities
+﻿namespace MachineManagerService.Domain.Entities
 {
     public class Machine
     {
