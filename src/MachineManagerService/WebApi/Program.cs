@@ -1,30 +1,33 @@
-using System.Reflection;
 
-namespace OrderManager
+namespace MachineManagerService.WebApi
 {
     public class Program
     {
-        static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
-                .ConfigureHostConfiguration(builder =>
-                {
-                    builder.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location))
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile("secrets/appsettings.secrets.json", optional: true)
-                        .AddEnvironmentVariables()
-                        .AddCommandLine(args);
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services
-                        .AddHostedService<Worker>()
-                        .AddServices(hostContext.Configuration);
+            var builder = WebApplication.CreateBuilder(args);
 
-                })
-                .Build();
-            await host.StartAsync();
-            await host.WaitForShutdownAsync();
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment()) {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            //app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
         }
     }
 }

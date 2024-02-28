@@ -30,8 +30,6 @@ namespace MachineManagerService.Domain.Entities
         /// 0 - start, 1 - finish
         /// 0 to 1
         /// </summary>
-        public double Progress { set; get; }
-
-        
+        public double Progress { set; get; }        
     }
 }
