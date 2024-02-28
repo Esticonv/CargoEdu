@@ -23,7 +23,4 @@ public class Order : IEntityBase
     public required long DepartureAddressId { get; set; }
 
     public required long DestinationAddressId { get; set; }
-
-    public required long TariffId { get; set; }
-
 }
