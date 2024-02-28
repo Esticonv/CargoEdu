@@ -1,0 +1,6 @@
+@MachineManagerService.WebApi_HostAddress = http://localhost:5258
+
+GET {{MachineManagerService.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
