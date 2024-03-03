@@ -1,3 +1,5 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -7,6 +9,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/OrderService/R7P.OrderService.WebApi/R7P.OrderService.WebApi.csproj", "src/OrderService/R7P.OrderService.WebApi/"]
+COPY ["src/OrderService/R7P.OrderService.Infrastructure/R7P.OrderService.Infrastructure.csproj", "src/OrderService/R7P.OrderService.Infrastructure/"]
+COPY ["src/OrderService/R7P.OrderService.Application/R7P.OrderService.Application.csproj", "src/OrderService/R7P.OrderService.Application/"]
+COPY ["src/OrderService/R7P.OrderService.Domain/R7P.OrderService.Domain.csproj", "src/OrderService/R7P.OrderService.Domain/"]
 RUN dotnet restore "./src/OrderService/R7P.OrderService.WebApi/./R7P.OrderService.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/OrderService/R7P.OrderService.WebApi"
