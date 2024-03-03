@@ -9,12 +9,12 @@ services:
     ports:
      - "5000:8080"
     depends_on:
-     - "r7p.postgres"
+     - "r7p_postgres"
     networks:
       - aspnetcoreapp-network
 
-  r7p.postgres:
-    container_name: 'r7p.postgres'
+  r7p_postgres:
+    container_name: 'postgres'
     image: postgres
     environment:      
       POSTGRES_PASSWORD: Qwerty1!
