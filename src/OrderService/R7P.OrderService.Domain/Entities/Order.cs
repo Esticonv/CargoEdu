@@ -10,6 +10,7 @@ public class Order : IEntity<long>
 
     public required OrderStatus Status { get; set;}
 
+    // TODO:: удалить поля Length, Width, Height. добавить Volume
     public required float Length  { get; set; }
 
     public required float Width { get; set; }
