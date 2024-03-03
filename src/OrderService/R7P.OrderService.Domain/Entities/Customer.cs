@@ -1,6 +1,6 @@
 ﻿namespace R7P.OrderService.Domain.Entities;
 
-public class Customer : IEntityBase
+public class Customer : IEntity<long>
 {
     public long Id {  get; set; }
     

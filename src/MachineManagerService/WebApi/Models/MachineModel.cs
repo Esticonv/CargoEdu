@@ -1,4 +1,6 @@
-﻿namespace MachineManagerService.WebApi.Models
+﻿using MachineManagerService.Application.Models;
+
+namespace MachineManagerService.WebApi.Models
 {
     public class MachineModel
     {

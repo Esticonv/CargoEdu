@@ -2,7 +2,7 @@
 
 namespace R7P.OrderService.Domain.Entities;
 
-public class Order : IEntityBase
+public class Order : IEntity<long>
 {
     public long Id { get; set; }
 

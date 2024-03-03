@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  r7p.orderservice.webapi:
+    image: ${DOCKER_REGISTRY-}r7porderservicewebapi
+    build:
+      context: .
+      dockerfile: src/OrderService/R7P.OrderService.WebApi/Dockerfile
+    ports:
+     - "5000:8080"
+    depends_on:
+     - "postgres_db"
+    networks:
+      - aspnetcoreapp-network
+
+  postgres_db:
+    container_name: 'postgres'
+    image: postgres
+    environment:      
+      POSTGRES_PASSWORD: Qwerty1!
+    networks:
+      - aspnetcoreapp-network
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge

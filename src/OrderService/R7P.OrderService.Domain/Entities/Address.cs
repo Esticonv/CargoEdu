@@ -1,6 +1,6 @@
 ﻿namespace R7P.OrderService.Domain.Entities;
 
-public class Address : IEntityBase
+public class Address : IEntity<long>
 {
     public long Id { get; set; }
 
