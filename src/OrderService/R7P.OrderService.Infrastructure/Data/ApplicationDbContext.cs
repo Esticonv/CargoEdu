@@ -12,6 +12,7 @@ public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
 
     public DbSet<Order> Orders => Set<Order>();
 
+    // TODO:: добавить конфигурации, сконфигурировать внешние ключи
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
