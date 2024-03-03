@@ -12,7 +12,7 @@ namespace R7P.OrderService.Infrastructure.Data.Repositories;
 public abstract class Repository<T, TPrimaryKey> : ReadRepository<T, TPrimaryKey>, IRepository<T, TPrimaryKey> where T
     : class, IEntity<TPrimaryKey>
 {
-    protected Repository(DbContext context) : base(context)
+    protected Repository(ApplicationDbContext context) : base(context)
     {
     }
 

@@ -11,10 +11,10 @@ namespace R7P.OrderService.Infrastructure.Data.Repositories;
 /// <typeparam name="TPrimaryKey">Основной ключ</typeparam>
 public abstract class ReadRepository<T, TPrimaryKey> : IReadRepository<T, TPrimaryKey> where T : class, IEntity<TPrimaryKey>
 {
-    protected readonly DbContext Context;
+    protected readonly ApplicationDbContext Context;
     protected DbSet<T> EntitySet;
 
-    protected ReadRepository(DbContext context)
+    protected ReadRepository(ApplicationDbContext context)
     {
         Context = context;
         EntitySet = Context.Set<T>();

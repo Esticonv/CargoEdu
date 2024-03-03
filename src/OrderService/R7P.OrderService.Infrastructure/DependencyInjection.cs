@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using R7P.OrderService.Infrastructure.Data.Initialiser;
 using R7P.OrderService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using R7P.OrderService.Infrastructure.Data.Repositories;
+using R7P.OrderService.Application.Repositories;
 
 namespace R7P.OrderService.Infrastructure;
 
@@ -17,6 +19,10 @@ public static class DependencyInjection
         });
 
         services.AddScoped<ApplicationDbContextInitialiser>();
+
+        services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
         return services;
     }
