@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\MachineManagerService.Application\MachineManagerService.Application.csproj" />
+    <ProjectReference Include="..\Application\MachineManagerService.Application\R7P.MachineManagerService.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
-﻿using MachineManagerService.Domain.Entities;
+﻿using R7P.MachineManagerService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.EntityFramework
+namespace R7P.MachineManagerService.Infrastructure.EntityFramework
 {
     public class DatabaseContext : DbContext
     {
