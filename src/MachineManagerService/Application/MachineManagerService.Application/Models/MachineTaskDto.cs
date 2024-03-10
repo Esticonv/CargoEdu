@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineManagerService.Application.Models
+namespace R7P.MachineManagerService.Application.Models
 {
     public class MachineTaskDto
     {

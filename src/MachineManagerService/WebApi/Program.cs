@@ -27,6 +27,8 @@ namespace MachineManagerService.WebApi
 
             app.MapControllers();
 
+            await app.Services.InitialiseDatabaseAsync();
+
             app.Run();
         }
     }

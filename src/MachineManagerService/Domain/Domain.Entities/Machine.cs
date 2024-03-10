@@ -3,7 +3,7 @@
     public class Machine : IEntity<int>
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public double VolumeCapacity { get; set; }
         public double WeightCapacity { get; set; }
         public double MaxSpeed {  get; set; }
