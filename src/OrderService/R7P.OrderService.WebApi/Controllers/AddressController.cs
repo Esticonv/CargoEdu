@@ -10,9 +10,15 @@ public class AddressController(IAddressService addressService) : ControllerBase
 {
     private readonly IAddressService _addressService = addressService;
 
-    [HttpGet("{id}")]
+    [HttpGet("getById/{id}")]
     public async Task<AddressDto> Get(int id)
     {
         return await _addressService.GetById(id);
+    }
+
+    [HttpGet("getAll")]
+    public async Task<AddressDto[]> GetAll()
+    {
+        return await _addressService.GetAll();
     }
 }

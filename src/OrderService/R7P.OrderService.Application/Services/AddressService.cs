@@ -7,6 +7,22 @@ public class AddressService(IAddressRepository addressRepository) : IAddressServ
 {
     private readonly IAddressRepository _addressRepository = addressRepository;
 
+    public async Task<AddressDto[]> GetAll()
+    {
+        var adresses = await _addressRepository.GetAllAsync(CancellationToken.None);
+        var result = adresses.Select(x => new AddressDto
+        {
+            AddressInfo = x.AddressInfo,
+            Email = x.Email,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            PhoneNumber = x.PhoneNumber,
+            Id = x.Id,
+        }).ToArray();
+
+        return result;
+    }
+
     public async Task<AddressDto> GetById(int id)
     {
         var address = await _addressRepository.GetAsync(id)

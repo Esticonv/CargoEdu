@@ -5,4 +5,6 @@ namespace R7P.OrderService.Application.Services;
 public interface IAddressService
 {
     Task<AddressDto> GetById(int id);
+
+    Task<AddressDto[]> GetAll();
 }
