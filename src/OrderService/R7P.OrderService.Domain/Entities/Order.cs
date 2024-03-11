@@ -9,19 +9,18 @@ public class Order : IEntity<long>
     public required decimal TotalPrice { get; set; }
 
     public required OrderStatus Status { get; set;}
-
-    // TODO:: удалить поля Length, Width, Height. добавить Volume
-    public required float Length  { get; set; }
-
-    public required float Width { get; set; }
-
-    public required float Height { get; set; }
-
-    public required float Weight { get; set; }
+        
+    public required float Volume  { get; set; }
 
     public required long CustomerId { get; set;}
 
     public required long DepartureAddressId { get; set; }
 
     public required long DestinationAddressId { get; set; }
+
+    public required Customer Customer { get; set; }
+
+    public required Address DepartureAddress { get; set; }
+
+    public required Address DestinationAddress { get; set; }
 }
