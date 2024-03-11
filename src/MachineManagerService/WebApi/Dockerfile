@@ -10,10 +10,10 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/MachineManagerService/Domain/Domain.Entities/R7P.MachineManagerService.Domain.Entities.csproj", "src/MachineManagerService/Domain/Domain.Entities/"]
 COPY ["src/MachineManagerService/Infrastructure/Infrastructure.EntityFramework/R7P.MachineManagerService.Infrastructure.EntityFramework.csproj", "src/MachineManagerService/Infrastructure/Infrastructure.EntityFramework/"]
-COPY ["src/MachineManagerService/Application/MachineManagerService.Application/R7P.MachineManagerService.Application.csproj", "src/MachineManagerService/Application/MachineManagerService.Application/"]
-COPY ["src/MachineManagerService/MachineManagerService.WebApi/R7P.MachineManagerService.WebApi.csproj", "src/MachineManagerService/MachineManagerService.WebApi/"]
+COPY ["src/MachineManagerService/Application/Application.Application/R7P.MachineManagerService.Application.csproj", "src/MachineManagerService/Application/Application.Application/"]
+COPY ["src/MachineManagerService/WebApi/R7P.MachineManagerService.WebApi.csproj", "src/MachineManagerService/WebApi/"]
 
-RUN dotnet restore "./src/MachineManagerService/MachineManagerService.WebApi/R7P.MachineManagerService.WebApi.csproj"
+RUN dotnet restore "./src/MachineManagerService/WebApi/R7P.MachineManagerService.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/MachineManagerService/R7P.MachineManagerService.WebApi"
 RUN dotnet build "./R7P.MachineManagerService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build

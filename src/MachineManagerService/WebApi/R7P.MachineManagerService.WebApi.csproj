@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\MachineManagerService.Application\R7P.MachineManagerService.Application.csproj" />
+    <ProjectReference Include="..\Application\Application.Application\R7P.MachineManagerService.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.EntityFramework\R7P.MachineManagerService.Infrastructure.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

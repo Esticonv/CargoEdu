@@ -1,5 +1,7 @@
+using R7P.MachineManagerService.Application;
+using R7P.MachineManagerService.Infrastructure;
 
-namespace MachineManagerService.WebApi
+namespace R7P.MachineManagerService.WebApi
 {
     public class Program
     {
@@ -8,7 +10,10 @@ namespace MachineManagerService.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
+            //Add web services
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -27,7 +32,7 @@ namespace MachineManagerService.WebApi
 
             app.MapControllers();
 
-            await app.Services.InitialiseDatabaseAsync();
+            //await app.Services.InitialiseDatabaseAsync();
 
             app.Run();
         }

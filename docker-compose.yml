@@ -25,16 +25,16 @@ services:
     image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
     build:
       context: .
-      dockerfile: src/MachineManagerService/R7P.MachineManagerService.WebApi/Dockerfile
+      dockerfile: src/MachineManagerService/WebApi/Dockerfile
     ports:
-     - "5000:8080"
+     - "5001:8080"
     depends_on:
      - "r7p.machinemanagerservice.postgres"
     networks:
       - aspnetcoreapp-network
 
   r7p.machinemanagerservice.postgres:
-    container_name: 'postgres'
+    container_name: 'postgres_machinemanagerservice'
     image: postgres
     environment:      
       POSTGRES_PASSWORD: Qwerty1!
