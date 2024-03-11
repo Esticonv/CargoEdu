@@ -13,4 +13,6 @@ public class Customer : IEntity<long>
     public required string LastName { get; set; }
 
     public required string Phone { get; set; }
+
+    public ICollection<Order> Orders { get; set; } = null!;
 }

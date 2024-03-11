@@ -11,7 +11,7 @@ using R7P.OrderService.Infrastructure.Data;
 namespace R7P.OrderService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240303145839_Initial")]
+    [Migration("20240311151629_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,8 @@ namespace R7P.OrderService.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
@@ -54,14 +55,15 @@ namespace R7P.OrderService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", "dbo");
                 });
 
             modelBuilder.Entity("R7P.OrderService.Domain.Entities.Customer", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
@@ -87,14 +89,15 @@ namespace R7P.OrderService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", "dbo");
                 });
 
             modelBuilder.Entity("R7P.OrderService.Domain.Entities.Order", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
@@ -107,27 +110,56 @@ namespace R7P.OrderService.Infrastructure.Migrations
                     b.Property<long>("DestinationAddressId")
                         .HasColumnType("bigint");
 
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Length")
-                        .HasColumnType("real");
-
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Width")
+                    b.Property<float>("Volume")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("DepartureAddressId");
+
+                    b.HasIndex("DestinationAddressId");
+
+                    b.ToTable("Orders", "dbo");
+                });
+
+            modelBuilder.Entity("R7P.OrderService.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("R7P.OrderService.Domain.Entities.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("R7P.OrderService.Domain.Entities.Address", "DepartureAddress")
+                        .WithMany()
+                        .HasForeignKey("DepartureAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("R7P.OrderService.Domain.Entities.Address", "DestinationAddress")
+                        .WithMany()
+                        .HasForeignKey("DestinationAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("DepartureAddress");
+
+                    b.Navigation("DestinationAddress");
+                });
+
+            modelBuilder.Entity("R7P.OrderService.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

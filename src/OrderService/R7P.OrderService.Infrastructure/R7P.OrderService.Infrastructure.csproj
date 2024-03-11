@@ -28,4 +28,8 @@
     <ProjectReference Include="..\R7P.OrderService.Domain\R7P.OrderService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
