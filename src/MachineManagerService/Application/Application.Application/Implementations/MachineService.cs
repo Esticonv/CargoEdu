@@ -5,7 +5,7 @@ using R7P.MachineManagerService.Domain.Entities;
 
 namespace R7P.MachineManagerService.Application.Implementations
 {
-    internal class MachineService(IMachineRepository machineRepository) : IMachineService
+    public class MachineService(IMachineRepository machineRepository) : IMachineService
     {
         private readonly IMachineRepository _machineRepository = machineRepository;
 
