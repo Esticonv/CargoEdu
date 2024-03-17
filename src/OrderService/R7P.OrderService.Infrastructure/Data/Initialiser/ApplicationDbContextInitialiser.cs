@@ -50,6 +50,15 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
                 Phone = "+7-950-469-99-99"
             });
 
+            _context.Addresses.Add(new Address
+            {
+                FirstName = "Иван",
+                LastName = "Иванов",
+                AddressInfo = "г. Москва, ул. Ленина, д.1, кв. 10",
+                Email = "ivanov@mail.ru",
+                PhoneNumber = "+7-950-123-12-12"
+            });
+
             await _context.SaveChangesAsync();
         }
     }
