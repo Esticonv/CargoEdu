@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "r7p.orderservice.webapi": "StartDebugging"
+        "r7p.orderservice.webapi": "StartDebugging",
+        "r7p.machinemanagerservice.webapi": "StartDebugging"
       }
     }
   }
