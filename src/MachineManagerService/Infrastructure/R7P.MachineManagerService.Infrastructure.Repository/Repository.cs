@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using R7P.MachineManagerService.Application.Interfaces;
 using R7P.MachineManagerService.Domain.Entities;
+using R7P.MachineManagerService.Infrastructure.EntityFramework;
 
 
 namespace R7P.MachineManagerService.Infrastructure.Repository
@@ -13,7 +14,7 @@ namespace R7P.MachineManagerService.Infrastructure.Repository
     public abstract class Repository<T, TPrimaryKey> : ReadRepository<T, TPrimaryKey>, IRepository<T, TPrimaryKey> where T 
         : class, IEntity<TPrimaryKey>
     {
-        protected Repository(DbContext context): base(context)
+        protected Repository(ApplicationDbContext context): base(context)
         {
         }
 

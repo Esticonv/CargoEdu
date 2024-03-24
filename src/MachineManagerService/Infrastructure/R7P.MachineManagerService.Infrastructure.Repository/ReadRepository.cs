@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using R7P.MachineManagerService.Application.Interfaces;
 using R7P.MachineManagerService.Domain.Entities;
+using R7P.MachineManagerService.Infrastructure.EntityFramework;
 
 namespace R7P.MachineManagerService.Infrastructure.Repository
 {
@@ -12,10 +13,10 @@ namespace R7P.MachineManagerService.Infrastructure.Repository
     /// <typeparam name="TPrimaryKey">Основной ключ</typeparam>
     public abstract class ReadRepository<T, TPrimaryKey> : IReadRepository<T, TPrimaryKey> where T : class, IEntity<TPrimaryKey>
     {
-        protected readonly DbContext Context;
+        protected readonly ApplicationDbContext Context;
         protected DbSet<T> EntitySet;
 
-        protected ReadRepository(DbContext context)
+        protected ReadRepository(ApplicationDbContext context)
         {
             Context = context;
             EntitySet = Context.Set<T>();
