@@ -17,10 +17,10 @@ namespace R7P.MachineManagerService.WebApi.Controllers
             _machineService= machineService; 
         }
 
-        /*[HttpGet("Machine/{id}")]
+        [HttpGet("{id}")]
         async public Task<MachineDto> Get(int id)
         {
              return await _machineService.GetById(id);
-        }*/
+        }
     }
 }
