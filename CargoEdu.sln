@@ -40,11 +40,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MachineManagerService.A
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{030DCC16-1FC6-4281-91DB-EC1117C02C37}"
 EndProject
-<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7P.MachineManagerService.Infrastructure.Repository", "src\MachineManagerService\Infrastructure\R7P.MachineManagerService.Infrastructure.Repository\R7P.MachineManagerService.Infrastructure.Repository.csproj", "{4E023287-6A05-405E-98C2-133AFD7AEE52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7P.MachineManagerService.Application.Interfaces", "src\MachineManagerService\Application\R7P.MachineManagerService.Application.Interfaces\R7P.MachineManagerService.Application.Interfaces.csproj", "{1304B333-AA54-415F-A893-868B6E1835F1}"
-=======
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeliveryCalculationService", "DeliveryCalculationService", "{5EB21B9E-B38B-41DE-B206-B488D61112D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.Application", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.Application\R7P.DeliveryCalculationService.Application.csproj", "{EA088D0A-D9BB-427D-B704-6117A79A16A6}"
@@ -54,7 +53,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.Infrastructure", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.Infrastructure\R7P.DeliveryCalculationService.Infrastructure.csproj", "{5FF567CD-2C33-447A-8481-456B7F563331}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.WebApi", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.WebApi\R7P.DeliveryCalculationService.WebApi.csproj", "{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}"
->>>>>>> origin/main
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{8D1B14EE-E10B-40D3-BEC1-20B4244FE079}"
+	ProjectSection(SolutionItems) = preProject
+		Scenaries.md = Scenaries.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,7 +109,7 @@ Global
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
+
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -115,7 +118,6 @@ Global
 		{1304B333-AA54-415F-A893-868B6E1835F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1304B333-AA54-415F-A893-868B6E1835F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1304B333-AA54-415F-A893-868B6E1835F1}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
 		{EA088D0A-D9BB-427D-B704-6117A79A16A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA088D0A-D9BB-427D-B704-6117A79A16A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA088D0A-D9BB-427D-B704-6117A79A16A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -132,7 +134,7 @@ Global
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Release|Any CPU.Build.0 = Release|Any CPU
->>>>>>> origin/main
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,25 +145,19 @@ Global
 		{A4878879-02B3-4482-A0FF-FFAA7ABD783B} = {717E9A22-5E67-463B-99D4-1ADC9B84676A}
 		{C6BC9DB9-04EC-4BF8-94EE-AD66A95AFBA8} = {717E9A22-5E67-463B-99D4-1ADC9B84676A}
 		{15A09201-CB38-4AF6-8312-B1FA933F230C} = {717E9A22-5E67-463B-99D4-1ADC9B84676A}
-		{2BE01C0B-0A97-4FDE-866C-AC6DE5447B21} = {E46D65B5-18C9-44E7-9E29-FC6268463509}
-		{8735007C-F29C-4540-9B82-50C773B2CED7} = {A6DC297A-0CDF-4077-95B2-5C4CEA25646D}
-		{BA7244B5-9DF9-457F-AF92-67C14E49092D} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
 		{E46D65B5-18C9-44E7-9E29-FC6268463509} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
 		{A6DC297A-0CDF-4077-95B2-5C4CEA25646D} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
 		{4246D2D8-E08A-45F3-9C73-BCFADAADF2C7} = {195BAC64-7EFB-4F74-94D8-3DCA26910B35}
-		{A3A7B0F8-6AB3-4B7F-853F-D1AD02FC5503} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
 		{C8CA725A-59E1-4883-B1F3-9ECD1715DE3D} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
 		{02F0E877-F220-4883-A827-4AEC1AB138DA} = {C8CA725A-59E1-4883-B1F3-9ECD1715DE3D}
-<<<<<<< HEAD
 		{4E023287-6A05-405E-98C2-133AFD7AEE52} = {A6DC297A-0CDF-4077-95B2-5C4CEA25646D}
 		{1304B333-AA54-415F-A893-868B6E1835F1} = {C8CA725A-59E1-4883-B1F3-9ECD1715DE3D}
-=======
 		{5EB21B9E-B38B-41DE-B206-B488D61112D4} = {195BAC64-7EFB-4F74-94D8-3DCA26910B35}
 		{EA088D0A-D9BB-427D-B704-6117A79A16A6} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{CDCF0B3D-DA89-4E99-9DA3-FD296568CA78} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{5FF567CD-2C33-447A-8481-456B7F563331} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
->>>>>>> origin/main
+
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0F91577-5464-444E-AF42-DD9A8FE5DA2A}
