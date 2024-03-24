@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MachineManagerService.Domain.Entities
+﻿namespace R7P.MachineManagerService.Domain.Entities
 {
-    public class Cargo
+    public class Cargo : IEntity<int>
     {
-        public int CargoId { get; set; }
+        public int Id { get; set; }
         public int MachineId { get; set; }
         public Machine? Machine { get; set; }
         public string? Destination { get; set; }

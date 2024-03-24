@@ -1,27 +1,26 @@
-using MachineManagerService.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using R7P.MachineManagerService.Application.Models;
+using R7P.MachineManagerService.Application.Interfaces;
 
-namespace MachineManagerService.WebApi.Controllers
+namespace R7P.MachineManagerService.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class MachineController : ControllerBase
     {
         private readonly ILogger<MachineController> _logger;
+        private readonly IMachineService _machineService;
 
-        public MachineController(ILogger<MachineController> logger)
+        public MachineController(ILogger<MachineController> logger, IMachineService machineService)
         {
             _logger = logger;
+            _machineService= machineService; 
         }
 
-        [HttpGet(Name = "GetMachine")]
-        public IEnumerable<Models.MachineModel> Get()
+        /*[HttpGet("Machine/{id}")]
+        async public Task<MachineDto> Get(int id)
         {
-            return Enumerable.Range(1, 5)
-                .Select(index => new MachineModel() {
-                    Name = $"Stub Machine #{index}"
-                    }
-            );
-        }
+             return await _machineService.GetById(id);
+        }*/
     }
 }
