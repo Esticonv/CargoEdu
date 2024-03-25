@@ -22,5 +22,17 @@ namespace R7P.MachineManagerService.WebApi.Controllers
         {
              return await _machineService.GetById(id);
         }
+
+        [HttpGet()]
+        async public Task<IEnumerable<MachineDto>> GetFiveIdle()
+        {
+            return await _machineService.GetFiveIdle();
+        }
+
+        [HttpPost]
+        async public Task<MachineDto> Post(MachineDto machine)
+        {            
+            return await _machineService.Add(machine);
+        }
     }
 }
