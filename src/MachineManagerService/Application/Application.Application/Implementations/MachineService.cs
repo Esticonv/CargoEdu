@@ -40,5 +40,12 @@ namespace R7P.MachineManagerService.Application.Implementations
 
             return GetById(machineEntity.Id).Result;
         }
+
+        public async Task<bool> Delete(int id)
+        {
+            bool result=_machineRepository.Delete(id);
+            await _machineRepository.SaveChangesAsync();
+            return result;
+        }
     }
 }

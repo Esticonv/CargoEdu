@@ -30,9 +30,15 @@ namespace R7P.MachineManagerService.WebApi.Controllers
         }
 
         [HttpPost]
-        async public Task<MachineDto> Post(MachineDto machine)
+        async public Task<MachineDto> Add(MachineDto machine)
         {            
             return await _machineService.Add(machine);
+        }
+
+        [HttpDelete("{id}")]
+        async public Task<bool> Delete(int id)
+        {
+            return await _machineService.Delete(id);
         }
     }
 }
