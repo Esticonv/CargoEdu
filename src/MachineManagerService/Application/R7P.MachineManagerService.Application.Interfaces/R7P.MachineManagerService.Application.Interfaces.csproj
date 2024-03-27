@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Domain\Domain.Entities\R7P.MachineManagerService.Domain.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" Version="3.4.0" />
+  </ItemGroup>
+
 </Project>

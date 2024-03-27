@@ -16,17 +16,17 @@ namespace R7P.MachineManagerService.Infrastructure.EntityFramework
                 options.UseNpgsql(connectionString);
             });
 
-            services.AddScoped<ApplicationDbContextInitialiser>();
+            services.AddScoped<ApplicationDbContextInitializer>();
 
             return services;
         }
 
-        public static void InitialiseDatabaseAsync(this IServiceProvider serviceProvider)
+        public static void InitializeDatabaseAsync(this IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-            initialiser.Initialise();
-            //await initialiser.SeedAsync();
+            var initializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+            initializer.Initialize();
+            initializer.Seed();
         }
     }
 }

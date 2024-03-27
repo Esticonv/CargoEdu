@@ -34,7 +34,7 @@ namespace R7P.MachineManagerService.WebApi
 
             app.MapControllers();
 
-            app.Services.InitialiseDatabaseAsync();
+            app.Services.InitializeDatabaseAsync();
 
             app.Run();
         }

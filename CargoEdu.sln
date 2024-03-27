@@ -40,9 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MachineManagerService.A
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{030DCC16-1FC6-4281-91DB-EC1117C02C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7P.MachineManagerService.Infrastructure.Repository", "src\MachineManagerService\Infrastructure\R7P.MachineManagerService.Infrastructure.Repository\R7P.MachineManagerService.Infrastructure.Repository.csproj", "{4E023287-6A05-405E-98C2-133AFD7AEE52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MachineManagerService.Infrastructure.Repository", "src\MachineManagerService\Infrastructure\R7P.MachineManagerService.Infrastructure.Repository\R7P.MachineManagerService.Infrastructure.Repository.csproj", "{4E023287-6A05-405E-98C2-133AFD7AEE52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7P.MachineManagerService.Application.Interfaces", "src\MachineManagerService\Application\R7P.MachineManagerService.Application.Interfaces\R7P.MachineManagerService.Application.Interfaces.csproj", "{1304B333-AA54-415F-A893-868B6E1835F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MachineManagerService.Application.Interfaces", "src\MachineManagerService\Application\R7P.MachineManagerService.Application.Interfaces\R7P.MachineManagerService.Application.Interfaces.csproj", "{1304B333-AA54-415F-A893-868B6E1835F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeliveryCalculationService", "DeliveryCalculationService", "{5EB21B9E-B38B-41DE-B206-B488D61112D4}"
 EndProject
@@ -109,7 +109,6 @@ Global
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{030DCC16-1FC6-4281-91DB-EC1117C02C37}.Release|Any CPU.Build.0 = Release|Any CPU
-
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E023287-6A05-405E-98C2-133AFD7AEE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -134,7 +133,6 @@ Global
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}.Release|Any CPU.Build.0 = Release|Any CPU
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,7 +155,6 @@ Global
 		{CDCF0B3D-DA89-4E99-9DA3-FD296568CA78} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{5FF567CD-2C33-447A-8481-456B7F563331} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
-
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0F91577-5464-444E-AF42-DD9A8FE5DA2A}
