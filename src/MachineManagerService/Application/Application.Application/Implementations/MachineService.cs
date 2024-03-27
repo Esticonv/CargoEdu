@@ -10,7 +10,7 @@ namespace R7P.MachineManagerService.Application.Implementations
     {
         private readonly IMachineRepository _machineRepository = machineRepository;
 
-        public async Task<IEnumerable<MachineDto>> GetFiveIdle()
+        public async Task<List<MachineDto>> GetFiveIdle()
         {
             var machines= await _machineRepository.GetAllAsync(CancellationToken.None,true);
 
