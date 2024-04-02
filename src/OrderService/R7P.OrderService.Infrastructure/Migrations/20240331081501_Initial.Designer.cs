@@ -11,7 +11,7 @@ using R7P.OrderService.Infrastructure.Data;
 namespace R7P.OrderService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240311151629_Initial")]
+    [Migration("20240331081501_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -117,6 +117,9 @@ namespace R7P.OrderService.Infrastructure.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<float>("Volume")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Weight")
                         .HasColumnType("real");
 
                     b.HasKey("Id");

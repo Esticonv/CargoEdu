@@ -12,15 +12,17 @@ public class Order : IEntity<long>
         
     public required float Volume  { get; set; }
 
+    public required float Weight { get; set; }
+
     public required long CustomerId { get; set;}
 
     public required long DepartureAddressId { get; set; }
 
     public required long DestinationAddressId { get; set; }
 
-    public required Customer Customer { get; set; }
+    public Customer Customer { get; set; } = null!;
 
-    public required Address DepartureAddress { get; set; }
+    public Address DepartureAddress { get; set; } = null!;
 
-    public required Address DestinationAddress { get; set; }
+    public Address DestinationAddress { get; set; } = null!;
 }

@@ -116,6 +116,9 @@ namespace R7P.OrderService.Infrastructure.Migrations
                     b.Property<float>("Volume")
                         .HasColumnType("real");
 
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");

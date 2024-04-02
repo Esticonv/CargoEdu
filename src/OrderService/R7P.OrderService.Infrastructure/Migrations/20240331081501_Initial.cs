@@ -60,6 +60,7 @@ namespace R7P.OrderService.Infrastructure.Migrations
                     TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     Volume = table.Column<float>(type: "real", nullable: false),
+                    Weight = table.Column<float>(type: "real", nullable: false),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
                     DepartureAddressId = table.Column<long>(type: "bigint", nullable: false),
                     DestinationAddressId = table.Column<long>(type: "bigint", nullable: false)
