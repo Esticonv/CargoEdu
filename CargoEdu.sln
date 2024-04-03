@@ -51,6 +51,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.Domain", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.Domain\R7P.DeliveryCalculationService.Domain.csproj", "{CDCF0B3D-DA89-4E99-9DA3-FD296568CA78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.Infrastructure", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.Infrastructure\R7P.DeliveryCalculationService.Infrastructure.csproj", "{5FF567CD-2C33-447A-8481-456B7F563331}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EA088D0A-D9BB-427D-B704-6117A79A16A6} = {EA088D0A-D9BB-427D-B704-6117A79A16A6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationService.WebApi", "src\DeliveryCalculationService\R7P.DeliveryCalculationService.WebApi\R7P.DeliveryCalculationService.WebApi.csproj", "{92B2AD37-FADA-4A76-AA6A-190E527CA0FE}"
 EndProject
