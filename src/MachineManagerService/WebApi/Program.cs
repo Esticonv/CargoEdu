@@ -10,8 +10,11 @@ namespace R7P.MachineManagerService.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.            
             builder.Services.AddApplicationServices(builder.Configuration);
+            
+
             builder.Services.AddInfrastructureEFServices(builder.Configuration); 
             builder.Services.AddInfrastructureRepositoryServices(builder.Configuration);            
 

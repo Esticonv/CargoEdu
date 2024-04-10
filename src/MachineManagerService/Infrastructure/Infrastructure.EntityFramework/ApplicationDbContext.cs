@@ -1,6 +1,7 @@
 ﻿using R7P.MachineManagerService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace R7P.MachineManagerService.Infrastructure.EntityFramework
 {
@@ -19,6 +20,7 @@ namespace R7P.MachineManagerService.Infrastructure.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            
 
             base.OnModelCreating(modelBuilder);  
         }

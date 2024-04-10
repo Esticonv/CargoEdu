@@ -10,13 +10,13 @@ namespace R7P.MachineManagerService.Application.Implementations
     {
         private readonly IMachineRepository _machineRepository = machineRepository;
 
-        public async Task<List<MachineDto>> GetFiveIdle()
+        public async Task<List<MachineDto>> GetAll()
         {
             var machines= await _machineRepository.GetAllAsync(CancellationToken.None,true);
 
             var results=new List<MachineDto>();
             
-            foreach(var machine in machines.Take(5)) {
+            foreach(var machine in machines) {
                 results.Add(MachineMapper.ToDto(machine));
             }
             return results;
