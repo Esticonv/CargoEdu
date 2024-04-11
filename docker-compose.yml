@@ -33,14 +33,6 @@ services:
     networks:
       - aspnetcoreapp-network
 
-  r7p.machinemanagerservice.postgres:
-    container_name: 'postgres_machinemanagerservice'
-    image: postgres
-    environment:      
-      POSTGRES_PASSWORD: Qwerty1!
-    networks:
-      - aspnetcoreapp-network
-
 networks:
   aspnetcoreapp-network:
     driver: bridge

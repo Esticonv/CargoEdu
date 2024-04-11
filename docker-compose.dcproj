@@ -7,7 +7,7 @@
     <ProjectGuid>030dcc16-1fc6-4281-91db-ec1117c02c37</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>r7p.orderservice.webapi</DockerServiceName>
+    <DockerServiceName>r7p.webapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />
