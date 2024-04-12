@@ -1,0 +1,40 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Home</PageTitle>
+
+<h1>Машины</h1>
+
+@if (forecasts == null) {
+    <p><em>Loading...</em></p>
+}
+else {
+    <ul>
+        @foreach (var forecast in forecasts) {
+            <li>
+                @forecast.ToString();
+            </li>
+        }
+    </ul>
+}
+
+<p>
+    @exceptionMessage
+</p>
+
+
+
+@code {
+    private object[]? forecasts;
+    private string? exceptionMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try { 
+            forecasts = await Http.GetFromJsonAsync<object[]>("http://localhost:5001/machine");
+        }
+        catch (NotSupportedException exception) {
+            exceptionMessage = exception.Message;
+        }
+    }
+}
