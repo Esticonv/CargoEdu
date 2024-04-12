@@ -12,8 +12,7 @@ namespace R7P.MachineManagerService.WebApi
 
 
             // Add services to the container.            
-            builder.Services.AddApplicationServices(builder.Configuration);
-            
+            builder.Services.AddApplicationServices(builder.Configuration);            
 
             builder.Services.AddInfrastructureEFServices(builder.Configuration); 
             builder.Services.AddInfrastructureRepositoryServices(builder.Configuration);            
@@ -27,10 +26,10 @@ namespace R7P.MachineManagerService.WebApi
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment()) {
+            //if (app.Environment.IsDevelopment()) {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
             //app.UseAuthorization();
 

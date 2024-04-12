@@ -29,7 +29,7 @@ services:
     ports:
      - "5001:8080"
     depends_on:
-     - "r7p.machinemanagerservice.postgres"
+     - "r7p_postgres"
     networks:
       - aspnetcoreapp-network
 
