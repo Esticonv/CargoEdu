@@ -1,18 +1,29 @@
 ﻿@page "/"
 @inject HttpClient Http
+@using R7P.MachineManagerService.WebSimulator.Models
 
 <PageTitle>Home</PageTitle>
 
 <h1>Машины</h1>
 
-@if (forecasts == null) {
+<button @onclick="OnStartButtomClick" disabled="!started"> Start </button>
+<button @onclick="OnStopButtomClick" disabled="started"> Stop </button>
+
+@if (machines == null) {
     <p><em>Loading...</em></p>
 }
 else {
     <ul>
-        @foreach (var forecast in forecasts) {
-            <li>
-                @forecast.ToString();
+        @foreach (var machine in machines) {
+            <li>        
+                @machine.Name
+
+                @foreach(var task in machine.Tasks) {
+                    <p>@task.ToString();</p>
+                }
+                @foreach (var cargo in machine.Сargoes) {
+                    <p>@cargo.ToString();</p>
+                }
             </li>
         }
     </ul>
@@ -25,16 +36,28 @@ else {
 
 
 @code {
-    private object[]? forecasts;
+    private bool started = false;
+
+    private MachineDto[]? machines;
     private string? exceptionMessage;
 
     protected override async Task OnInitializedAsync()
     {
         try { 
-            forecasts = await Http.GetFromJsonAsync<object[]>("http://localhost:5001/machine");
+            machines = await Http.GetFromJsonAsync<MachineDto[]>("http://localhost:5001/machine");
         }
         catch (NotSupportedException exception) {
             exceptionMessage = exception.Message;
         }
+    }
+
+    void OnStartButtomClick()
+    {
+        started = true;
+    }
+
+    void OnStopButtomClick()
+    {
+        started = false;
     }
 }
