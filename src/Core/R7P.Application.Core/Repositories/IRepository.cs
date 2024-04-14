@@ -1,6 +1,6 @@
-﻿using R7P.OrderService.Domain.Entities;
+﻿using R7P.Domain.Core.Entities;
 
-namespace R7P.OrderService.Application.Repositories;
+namespace R7P.Application.Core.Repositories;
 
 /// <summary>
 /// Базовый интерфейс всех репозиториев

@@ -1,12 +1,10 @@
-﻿using R7P.OrderService.Domain.Enums;
+﻿using R7P.Domain.Core.Entities;
+using R7P.OrderService.Domain.Enums;
 
 namespace R7P.OrderService.Domain.Entities;
 
-public class Order : IEntity<long>
-{
-    public long Id { get; set; }
-
-    public required decimal TotalPrice { get; set; }
+public class Order : BaseEntity
+{   public required decimal TotalPrice { get; set; }
 
     public required OrderStatus Status { get; set;}
         

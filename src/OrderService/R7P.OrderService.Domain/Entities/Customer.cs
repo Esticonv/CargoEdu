@@ -1,10 +1,9 @@
-﻿namespace R7P.OrderService.Domain.Entities;
+﻿using R7P.Domain.Core.Entities;
 
-public class Customer : IEntity<long>
-{
-    public long Id {  get; set; }
-    
-    public required string UserName { get; set; }
+namespace R7P.OrderService.Domain.Entities;
+
+public class Customer : BaseEntity
+{   public required string UserName { get; set; }
 
     public required string Email { get; set; }
 

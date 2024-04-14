@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using R7P.OrderService.Application.Repositories;
-using R7P.OrderService.Domain.Entities;
+using R7P.Application.Core.Repositories;
+using R7P.Domain.Core.Entities;
 
-namespace R7P.OrderService.Infrastructure.Data.Repositories;
+namespace R7P.Infrastructure.Core.Repositories;
 
 /// <summary>
 /// Репозиторий для чтения
@@ -11,10 +11,10 @@ namespace R7P.OrderService.Infrastructure.Data.Repositories;
 /// <typeparam name="TPrimaryKey">Основной ключ</typeparam>
 public abstract class ReadRepository<T, TPrimaryKey> : IReadRepository<T, TPrimaryKey> where T : class, IEntity<TPrimaryKey>
 {
-    protected readonly ApplicationDbContext Context;
+    protected readonly DbContext Context;
     protected DbSet<T> EntitySet;
 
-    protected ReadRepository(ApplicationDbContext context)
+    protected ReadRepository(DbContext context)
     {
         Context = context;
         EntitySet = Context.Set<T>();

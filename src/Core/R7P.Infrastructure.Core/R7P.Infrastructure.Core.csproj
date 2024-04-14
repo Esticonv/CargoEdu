@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\R7P.Domain.Core\R7P.Domain.Core.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\R7P.Application.Core\R7P.Application.Core.csproj" />
   </ItemGroup>
 
 </Project>

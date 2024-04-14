@@ -1,6 +1,6 @@
 ﻿namespace R7P.Domain.Core.Dtos;
 
-public class OrderCreatedEvent
+public class OrderCreatedMessage
 {
     public required long Id { get; init; }
 

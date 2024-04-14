@@ -1,9 +1,9 @@
-﻿namespace R7P.OrderService.Domain.Entities;
+﻿using R7P.Domain.Core.Entities;
 
-public class Address : IEntity<long>
+namespace R7P.OrderService.Domain.Entities;
+
+public class Address : BaseEntity
 {
-    public long Id { get; set; }
-
     public required string AddressInfo { get; set; }
 
     public required string FirstName { get; set; }

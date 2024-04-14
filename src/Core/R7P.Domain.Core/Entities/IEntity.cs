@@ -1,4 +1,4 @@
-﻿namespace R7P.OrderService.Domain.Entities;
+﻿namespace R7P.Domain.Core.Entities;
 
 /// <summary>
 /// Интерфейс сущности с идентификатором

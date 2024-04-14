@@ -1,26 +1,20 @@
-﻿using MassTransit;
-using R7P.Domain.Core.Dtos;
+﻿using MediatR;
+using R7P.Infrastructure.Core.Repositories;
 using R7P.OrderService.Application.Repositories;
 using R7P.OrderService.Domain.Entities;
+using R7P.OrderService.Domain.Events;
 
 namespace R7P.OrderService.Infrastructure.Data.Repositories;
 
-public class OrderRepository(ApplicationDbContext context, IPublishEndpoint publishEndpoint) : Repository<Order, long>(context), IOrderRepository
+public class OrderRepository(ApplicationDbContext context, IMediator mediator) 
+    : Repository<Order, long>(context, mediator), IOrderRepository
 {
-    private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
     public override async Task<Order> AddAsync(Order entity)
     {
-        var addedEntity = await base.AddAsync(entity);
-
-        await _publishEndpoint.Publish(new OrderCreatedEvent
+        Order addedEntity = await base.AddAsync(entity);
+        addedEntity.AddDomainEvent(new OrderCreatedEvent
         {
-            Id = addedEntity.Id,
-            DepartureAddress = addedEntity.DepartureAddress.AddressInfo,
-            DestinationAddress = addedEntity.DestinationAddress.AddressInfo,
-            TotalPrice = addedEntity.TotalPrice,
-            Volume = addedEntity.Volume,
-            Weight = addedEntity.Weight
+            Order = addedEntity
         });
 
         return addedEntity;

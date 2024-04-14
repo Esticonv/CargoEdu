@@ -10,7 +10,6 @@
     <PackageReference Include="MassTransit" Version="8.2.0" />
     <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,13 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\MessageBus\MessageBus.csproj" />
+    <ProjectReference Include="..\..\Core\R7P.Infrastructure.Core\R7P.Infrastructure.Core.csproj" />
     <ProjectReference Include="..\R7P.OrderService.Application\R7P.OrderService.Application.csproj" />
     <ProjectReference Include="..\R7P.OrderService.Domain\R7P.OrderService.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>
