@@ -12,8 +12,10 @@ namespace R7P.MachineManagerService.WebSimulator
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            string connectionString = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"] 
-                ?? throw new InvalidOperationException("Not found connection string");
+            //string connectionString = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"] 
+            //    ?? throw new InvalidOperationException("Not found connection string");
+
+            var connectionString = string.Empty;
 
             builder.Services.AddHttpClient("WebAPI", client =>
                 client.BaseAddress = new Uri(connectionString));

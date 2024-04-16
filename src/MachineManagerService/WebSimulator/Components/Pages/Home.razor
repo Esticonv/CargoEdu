@@ -1,13 +1,16 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject IHttpClientFactory ClientFactory
 @using R7P.MachineManagerService.WebSimulator.Models
 
 <PageTitle>Home</PageTitle>
 
 <h1>Машины</h1>
 
-<button @onclick="OnStartButtomClick" disabled="!started"> Start </button>
-<button @onclick="OnStopButtomClick" disabled="started"> Stop </button>
+<button @onclick="OnStartButtomClick"> Start </button>
+<button @onclick="OnStopButtomClick"> Stop </button>
+
+<p>Last update: @lastUpdate</p>
 
 @if (machines == null) {
     <p><em>Loading...</em></p>
@@ -41,15 +44,80 @@ else {
     private MachineDto[]? machines;
     private string? exceptionMessage;
 
+    private string lastUpdate=string.Empty;
+
+
+
+    private CancellationToken cancellationToken = new();
+
     protected override async Task OnInitializedAsync()
     {
-        try { 
-            machines = await Http.GetFromJsonAsync<MachineDto[]>("http://localhost:5001/machine");
+        /*try { 
+        machines = await Http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
         }
-        catch (NotSupportedException exception) {
+        catch (Exception exception) {
             exceptionMessage = exception.Message;
+        }*/
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        /*using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+
+        while (await timer.WaitForNextTickAsync()) {
+            var http = ClientFactory.CreateClient();
+            try
+            {
+                machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+            }
+            catch (Exception exception)
+            {
+                exceptionMessage = exception.Message;
+            }
+            finally
+            {
+                lastUpdate = DateTime.UtcNow.ToString();
+                await InvokeAsync(StateHasChanged);
+            }
+        }   */        
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender) {
+
+            InvokeAsync(async () =>
+            {
+                using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+
+                while (await timer.WaitForNextTickAsync())
+                {
+                    var http = ClientFactory.CreateClient();
+                    machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+                    lastUpdate = DateTime.UtcNow.ToString();
+                    await InvokeAsync(StateHasChanged);
+                }
+            });
         }
     }
+
+    /*protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+
+            while (await timer.WaitForNextTickAsync()) {
+                var http = ClientFactory.CreateClient();
+                machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+                lastUpdate = DateTime.UtcNow.ToString();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }*/
 
     void OnStartButtomClick()
     {
