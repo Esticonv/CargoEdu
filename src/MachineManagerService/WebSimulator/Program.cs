@@ -12,6 +12,11 @@ namespace R7P.MachineManagerService.WebSimulator
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            //builder.Services.AddServerSideBlazor();
+
+            builder.Services.AddSingleton<NotifierService>();
+            builder.Services.AddSingleton<TimerService>();
+
             //string connectionString = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"] 
             //    ?? throw new InvalidOperationException("Not found connection string");
 
