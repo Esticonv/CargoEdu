@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<ApplicationDbContextInitialiser>();
 
         services.AddScoped<ISegmentRepository, SegmentRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
 
         return services;
     }
