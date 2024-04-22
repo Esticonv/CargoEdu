@@ -11,16 +11,16 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY . .
 
-RUN dotnet restore "./src/MachineManagerService/WebApi/R7P.MachineManagerService.WebApi.csproj"
+RUN dotnet restore "./src/MachineManagerService/WebSimulator/R7P.MachineManagerService.WebSimulator.csproj"
 
-WORKDIR /src/src/MachineManagerService/WebApi
-RUN dotnet build "R7P.MachineManagerService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/MachineManagerService/WebSimulator"
+RUN dotnet build "./R7P.MachineManagerService.WebSimulator.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "R7P.MachineManagerService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./R7P.MachineManagerService.WebSimulator.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "R7P.MachineManagerService.WebApi.dll"]
+ENTRYPOINT ["dotnet", "R7P.MachineManagerService.WebSimulator.dll"]

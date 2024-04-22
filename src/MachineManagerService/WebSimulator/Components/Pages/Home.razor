@@ -1,0 +1,166 @@
+﻿@page "/"
+@implements IDisposable
+@rendermode InteractiveServer
+@inject IHttpClientFactory ClientFactory
+@inject NotifierService Notifier
+@inject TimerService Timer
+
+@using R7P.MachineManagerService.WebSimulator.Models
+
+<PageTitle>Home</PageTitle>
+
+<h1>Машины</h1>
+
+<button @onclick="OnStartButtomClick"> Start </button>
+<button @onclick="OnStopButtomClick" disabled> Stop </button>
+
+<p>Last update: @lastUpdate</p>
+
+<p>Запуск: @started, Ошибки: @exceptionMessage </p>
+
+@if (machines == null) {
+    <p><em>Press start</em></p>
+}
+else {
+    <ul>
+        @foreach (var machine in machines) {
+            <li>        
+                @machine.Name
+
+                @foreach(var task in machine.Tasks) {
+                    <p>@task.ToString();</p>
+                }
+                @foreach (var cargo in machine.Сargoes) {
+                    <p>@cargo.ToString();</p>
+                }
+            </li>
+        }
+    </ul>
+}
+
+
+
+
+
+@code {
+    private bool started = false;
+
+    private MachineDto[]? machines;
+    private string? exceptionMessage;
+
+    private string lastUpdate=string.Empty;
+
+    private CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+    private CancellationToken cancellationToken;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cancellationToken = cancelTokenSource.Token;
+
+        Notifier.Notify += OnNotify;
+
+        /*try { 
+        machines = await Http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+        }
+        catch (Exception exception) {
+            exceptionMessage = exception.Message;
+        }*/
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        /*using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+                * 
+                while (await timer.WaitForNextTickAsync()) {
+                var http = ClientFactory.CreateClient();
+                try
+                {
+                machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+                }
+                catch (Exception exception)
+                {
+                exceptionMessage = exception.Message;
+                }
+                finally
+                {
+                lastUpdate = DateTime.UtcNow.ToString();
+                await InvokeAsync(StateHasChanged);
+            }
+        }   */        
+    }
+
+        /*protected override void OnAfterRender(bool firstRender)
+        {
+        if (firstRender) {
+        InvokeAsync(async () =>
+            {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+
+            while (await timer.WaitForNextTickAsync())
+            {
+            var http = ClientFactory.CreateClient();
+            machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+            lastUpdate = DateTime.UtcNow.ToString();
+    await InvokeAsync(StateHasChanged);
+    }
+    });
+    }
+    }*/
+
+    /*protected override async Task OnAfterRenderAsync(bool firstRender)
+            {
+            if (firstRender) {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+
+            while (await timer.WaitForNextTickAsync()) {
+                var http = ClientFactory.CreateClient();
+                machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+                lastUpdate = DateTime.UtcNow.ToString();
+                await InvokeAsync(StateHasChanged);
+        }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }*/
+
+    private void OnStartButtomClick()
+    {
+        if (started == false)
+        {
+            started = true;
+            _ = Task.Run(Timer.Start, cancellationToken);
+        }
+    }
+
+    private void OnStopButtomClick()
+    {
+        started = false;
+
+        cancelTokenSource.Cancel();
+        //timerTask
+
+        //Timer.Stop();
+    }
+
+    public async Task OnNotify(string key, int value)
+    {
+        await InvokeAsync(() =>
+        {
+            try {
+                var http = ClientFactory.CreateClient();
+                machines = http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine").Result;
+            }
+            catch (Exception exception) {
+                exceptionMessage = exception.Message;
+            }
+            finally {
+                lastUpdate = DateTime.UtcNow.ToString();
+                StateHasChanged();
+            }
+        });
+    }
+
+    public void Dispose() => Notifier.Notify -= OnNotify;
+}

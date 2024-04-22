@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int MachineId { get; set; }
-        public Machine? Machine {get;set;}
+        public virtual Machine? Machine {get;set;}
 
         /// <summary>
         /// One machine can have 0 to many Task.

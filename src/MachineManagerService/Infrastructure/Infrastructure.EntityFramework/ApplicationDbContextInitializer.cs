@@ -18,7 +18,7 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            _logger.LogError(ex, "An error occurred while initializing the database.");
             throw;
         }
     }
@@ -41,7 +41,7 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
                 });
 
                 _context.Machines.Add(new Machine {
-                    Name = "Fast and expensiee machine",
+                    Name = "Fast and expensive machine",
                     CostPerDistance = 4,
                     MaxSpeed = 2,
                     VolumeCapacity = 2,

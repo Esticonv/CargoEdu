@@ -22,24 +22,26 @@ services:
       - aspnetcoreapp-network
 
   r7p.machinemanagerservice.webapi:
-    image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
-    build:
-      context: .
-      dockerfile: src/MachineManagerService/WebApi/Dockerfile
-    ports:
-     - "5001:8080"
-    depends_on:
-     - "r7p.machinemanagerservice.postgres"
-    networks:
-      - aspnetcoreapp-network
+   image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
+   build:
+     context: .
+     dockerfile: src/MachineManagerService/WebApi/Dockerfile
+   ports:
+    - "5001:8080"
+   depends_on:
+    - "r7p_postgres"
+   networks:
+     - aspnetcoreapp-network
 
-  r7p.machinemanagerservice.postgres:
-    container_name: 'postgres_machinemanagerservice'
-    image: postgres
-    environment:      
-      POSTGRES_PASSWORD: Qwerty1!
-    networks:
-      - aspnetcoreapp-network
+  r7p.machinemanagerservice.simulator:
+   image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-simulator
+   build:
+     context: .
+     dockerfile: src/MachineManagerService/WebSimulator/Dockerfile
+   ports:
+    - "5002:8080"
+   networks:
+     - aspnetcoreapp-network
 
 networks:
   aspnetcoreapp-network:

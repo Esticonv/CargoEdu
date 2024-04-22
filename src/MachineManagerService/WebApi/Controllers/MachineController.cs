@@ -24,9 +24,9 @@ namespace R7P.MachineManagerService.WebApi.Controllers
         }
 
         [HttpGet()]
-        async public Task<IEnumerable<MachineDto>> GetFiveIdle()
+        async public Task<List<MachineDto>> GetAll()
         {
-            return await _machineService.GetFiveIdle();
+            return await _machineService.GetAll();
         }
 
         [HttpPost]
