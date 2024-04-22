@@ -3,9 +3,9 @@ using R7P.DeliveryCalculationService.Application.Repositories;
 
 namespace R7P.DeliveryCalculationService.Application.Services;
 
-public class DeliveryCalculationService(IDeliverySpecificationRepository repository) : IDeliveryCalculationService
+public class DeliveryCalculationService(ISegmentRepository repository) : IDeliveryCalculationService
 {
-    private readonly IDeliverySpecificationRepository _repository = repository;
+    private readonly ISegmentRepository _repository = repository;
 
     public async Task<DeliverySpecificationDto[]> GetAll(CancellationToken ct = default)
     {

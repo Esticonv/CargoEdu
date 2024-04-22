@@ -43,6 +43,16 @@ services:
    networks:
      - aspnetcoreapp-network
 
+  r7p.deliverycalculationservice.webapi:
+   image: ${DOCKER_REGISTRY-}r7p-deliverycalculationservice-webapi
+   build:
+     context: .
+     dockerfile: src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/Dockerfile
+   ports:
+    - "5003:8080"
+   networks:
+     - aspnetcoreapp-network
+
 networks:
   aspnetcoreapp-network:
     driver: bridge

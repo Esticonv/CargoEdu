@@ -2,6 +2,6 @@
 
 namespace R7P.DeliveryCalculationService.Application.Repositories;
 
-public interface IDeliverySpecificationRepository : IRepository<DeliverySpecification, long>
+public interface ISegmentRepository : IRepository<Segment, long>
 {
 }

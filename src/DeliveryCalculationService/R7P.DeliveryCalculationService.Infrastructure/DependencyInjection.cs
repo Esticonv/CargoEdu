@@ -19,7 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
-        services.AddScoped<IDeliverySpecificationRepository, DeliverySpecificationRepository>();
+        services.AddScoped<ISegmentRepository, SegmentRepository>();
 
         return services;
     }
