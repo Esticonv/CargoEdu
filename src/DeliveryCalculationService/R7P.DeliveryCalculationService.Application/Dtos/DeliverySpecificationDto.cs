@@ -2,9 +2,11 @@ namespace R7P.DeliveryCalculationService.Application.Dtos;
 
 public class DeliverySpecificationDto
 {
-    public long DepartureAddressId { get; set; }
+    public long Id { get; init; }
 
-    public long DestinationAddressId { get; set; }
+    public long DepartureAddressId { get; init; }
+
+    public long DestinationAddressId { get; init; }
     
-    public double Distance { get; set; }
+    public double Distance { get; init; }
 }
