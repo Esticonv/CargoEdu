@@ -35,7 +35,7 @@ public class DeliveryCalculationController(IDeliveryCalculationService deliveryC
         var http = httpClientFactory.CreateClient();
         var machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
                 
-        var path = await deliveryCalculationService.GetDistance(from, to);
+        var path = await _deliveryCalculationService.GetDistance(from, to);
         if (double.IsNaN(path)) {
             throw new ArgumentException($"Path not found from:{from} to:{to}");
         }
@@ -47,7 +47,10 @@ public class DeliveryCalculationController(IDeliveryCalculationService deliveryC
                 Cost = (decimal)path * machine.CostPerDistance };
             calculations.Add(calculation);
         }
-        
-        return calculations.ToArray();
+
+        var arrCalculations = calculations.ToArray();
+        await _deliveryCalculationService.SaveCalculation(arrCalculations);
+
+        return arrCalculations;
     }
 }

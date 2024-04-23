@@ -39,53 +39,62 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
     {
         if (!_context.Segments.Any())
         {
+            var planets = new List<Address> {
+                new() { AddressInfo = "Меркурий" },
+                new() { AddressInfo = "Венера" },
+                new() { AddressInfo = "Земля" },
+                new() { AddressInfo = "Марс" },
+                new() { AddressInfo = "Юпитер" },
+                new() { AddressInfo = "Сатурн" },
+                new() { AddressInfo = "Уран" },
+                new() { AddressInfo = "Нептун" }
+            }; 
+
+            foreach (var planet in planets) {
+                _context.AddressSpecs.Add(planet);
+            }                        
+
             _context.Segments.Add(new Segment
             {
-                DepartureAddress = new Address { AddressInfo="Меркурий"},
-                DestinationAddress = new Address { AddressInfo = "Венера"},
+                DepartureAddress = planets[0],
+                DestinationAddress = planets[1],
                 Distance = 1,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Венера" },
-                DestinationAddress = new Address { AddressInfo = "Земля" },
+                DepartureAddress = planets[1],
+                DestinationAddress = planets[2],
                 Distance = 3,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Венера" },
-                DestinationAddress = new Address { AddressInfo = "Земля" },
+                DepartureAddress = planets[2],
+                DestinationAddress = planets[3],
                 Distance = 5,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Земля" },
-                DestinationAddress = new Address { AddressInfo = "Марс" },
+                DepartureAddress = planets[3],
+                DestinationAddress = planets[4],
                 Distance = 7,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Марс" },
-                DestinationAddress = new Address { AddressInfo = "Юпитер" },
+                DepartureAddress = planets[4],
+                DestinationAddress = planets[5],
                 Distance = 11,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Юпитер" },
-                DestinationAddress = new Address { AddressInfo = "Сатурн" },
+                DepartureAddress = planets[5],
+                DestinationAddress = planets[6],
                 Distance = 13,
             });
 
             _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Сатурн" },
-                DestinationAddress = new Address { AddressInfo = "Уран" },
+                DepartureAddress = planets[6],
+                DestinationAddress = planets[7],
                 Distance = 17,
-            });
-
-            _context.Segments.Add(new Segment {
-                DepartureAddress = new Address { AddressInfo = "Уран" },
-                DestinationAddress = new Address { AddressInfo = "Нептун" },
-                Distance = 21,
             });
 
             await _context.SaveChangesAsync();

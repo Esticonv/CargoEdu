@@ -1,12 +1,18 @@
 using R7P.DeliveryCalculationService.Application.Dtos;
+using R7P.DeliveryCalculationService.Application.Mapping;
 using R7P.DeliveryCalculationService.Application.Repositories;
+using R7P.DeliveryCalculationService.Domain.Entities;
 
 namespace R7P.DeliveryCalculationService.Application.Services;
 
-public class DeliveryCalculationService(ISegmentRepository segmentRepository, IAddressRepository addressRepository) : IDeliveryCalculationService
+public class DeliveryCalculationService(
+    ISegmentRepository segmentRepository, 
+    IAddressRepository addressRepository, 
+    ICalculationRepository calculationRepository) : IDeliveryCalculationService
 {
     private readonly ISegmentRepository _segmentRepository = segmentRepository;
     private readonly IAddressRepository _addressRepository = addressRepository;
+    private readonly ICalculationRepository _calculationRepository = calculationRepository;
 
     /*public async Task<SegmentDto[]> GetAll(CancellationToken ct = default)
     {
@@ -38,5 +44,14 @@ public class DeliveryCalculationService(ISegmentRepository segmentRepository, IA
             (x.DestinationAddress == address[1] && x.DepartureAddress == address[0])).FirstOrDefault();
 
         return segment?.Distance ?? double.NaN;
+    }
+
+    public async Task SaveCalculation(CalculationDto[] calculations)
+    {
+        foreach (var calculation in calculations) {
+            await _calculationRepository.AddAsync(CalculationMapper.ToDomain(calculation));
+        }
+
+        await _calculationRepository.SaveChangesAsync();
     }
 }
