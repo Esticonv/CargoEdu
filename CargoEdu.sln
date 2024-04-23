@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainService", "MainService\MainService.csproj", "{CF65F66A-892C-478C-A93F-1C0B46B47BB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MainGateService.WebApi", "src\MainGateService\R7P.MainGateService.WebApi\R7P.MainGateService.WebApi.csproj", "{CF65F66A-892C-478C-A93F-1C0B46B47BB7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{195BAC64-7EFB-4F74-94D8-3DCA26910B35}"
 EndProject
@@ -56,11 +56,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.DeliveryCalculationServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{8D1B14EE-E10B-40D3-BEC1-20B4244FE079}"
 	ProjectSection(SolutionItems) = preProject
-		src\MachineManagerService\MachineManagerServiceDBScheme.drawio.html = src\MachineManagerService\MachineManagerServiceDBScheme.drawio.html
-		Scenaries.md = Scenaries.md
+		doc\MachineManagerServiceDBScheme.drawio.html = doc\MachineManagerServiceDBScheme.drawio.html
+		doc\Scenaries.md = doc\Scenaries.md
+		doc\Схема данных OrderService.drawio.html = doc\Схема данных OrderService.drawio.html
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R7P.MachineManagerService.WebSimulator", "src\MachineManagerService\WebSimulator\R7P.MachineManagerService.WebSimulator.csproj", "{D9900797-C886-4D81-A2B4-4AF9CCDC7354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R7P.MachineManagerService.WebSimulator", "src\MachineManagerService\WebSimulator\R7P.MachineManagerService.WebSimulator.csproj", "{D9900797-C886-4D81-A2B4-4AF9CCDC7354}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MainGateService", "MainGateService", "{41810905-04CC-4841-8220-9FF832D42F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +148,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{CF65F66A-892C-478C-A93F-1C0B46B47BB7} = {41810905-04CC-4841-8220-9FF832D42F6B}
 		{717E9A22-5E67-463B-99D4-1ADC9B84676A} = {195BAC64-7EFB-4F74-94D8-3DCA26910B35}
 		{0BAC3586-76E5-44AC-8CAA-C4F9541B8F80} = {717E9A22-5E67-463B-99D4-1ADC9B84676A}
 		{A4878879-02B3-4482-A0FF-FFAA7ABD783B} = {717E9A22-5E67-463B-99D4-1ADC9B84676A}
@@ -167,6 +171,7 @@ Global
 		{5FF567CD-2C33-447A-8481-456B7F563331} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{92B2AD37-FADA-4A76-AA6A-190E527CA0FE} = {5EB21B9E-B38B-41DE-B206-B488D61112D4}
 		{D9900797-C886-4D81-A2B4-4AF9CCDC7354} = {4246D2D8-E08A-45F3-9C73-BCFADAADF2C7}
+		{41810905-04CC-4841-8220-9FF832D42F6B} = {195BAC64-7EFB-4F74-94D8-3DCA26910B35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0F91577-5464-444E-AF42-DD9A8FE5DA2A}

@@ -4,9 +4,9 @@ using R7P.DeliveryCalculationService.Domain.Entities;
 
 namespace R7P.DeliveryCalculationService.Infrastructure.Configurations;
 
-public class DeliverySpecificationConfiguration : IEntityTypeConfiguration<DeliverySpecification>
+/*public class DeliverySpecificationConfiguration : IEntityTypeConfiguration<Segment>
 {
-    public void Configure(EntityTypeBuilder<DeliverySpecification> builder)
+    public void Configure(EntityTypeBuilder<Segment> builder)
     {
         builder.ToTable("DeliverySpecifications", "dbo");
 
@@ -14,4 +14,4 @@ public class DeliverySpecificationConfiguration : IEntityTypeConfiguration<Deliv
             .HasColumnName("Id")    
             .ValueGeneratedOnAdd();
     }
-}
+}*/

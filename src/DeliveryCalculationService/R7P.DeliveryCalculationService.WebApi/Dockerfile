@@ -8,12 +8,10 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/R7P.DeliveryCalculationService.WebApi.csproj", "src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/"]
-COPY ["src/DeliveryCalculationService/R7P.DeliveryCalculationService.Infrastructure/R7P.DeliveryCalculationService.Infrastructure.csproj", "src/DeliveryCalculationService/R7P.DeliveryCalculationService.Infrastructure/"]
-COPY ["src/DeliveryCalculationService/R7P.DeliveryCalculationService.Application/R7P.DeliveryCalculationService.Application.csproj", "src/DeliveryCalculationService/R7P.DeliveryCalculationService.Application/"]
-COPY ["src/DeliveryCalculationService/R7P.DeliveryCalculationService.Domain/R7P.DeliveryCalculationService.Domain.csproj", "src/DeliveryCalculationService/R7P.DeliveryCalculationService.Domain/"]
-RUN dotnet restore "./src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/./R7P.DeliveryCalculationService.WebApi.csproj"
 COPY . .
+
+RUN dotnet restore "./src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/R7P.DeliveryCalculationService.WebApi.csproj"
+
 WORKDIR "/src/src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi"
 RUN dotnet build "./R7P.DeliveryCalculationService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

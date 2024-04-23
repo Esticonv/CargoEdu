@@ -7,18 +7,20 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+
 WORKDIR /src
-COPY ["Main.csproj", "."]
-RUN dotnet restore "./././Main.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./Main.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+RUN dotnet restore "./src/MainGateService/R7P.MainGateService.WebApi/R7P.MainGateService.WebApi.csproj"
+
+WORKDIR /src/src/R7P.MachineManagerService.WebApi
+RUN dotnet build "./R7P.MainGateService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Main.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./R7P.MainGateService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Main.dll"]
+ENTRYPOINT ["dotnet", "R7P.MainGateService.WebApi.csproj.dll"]

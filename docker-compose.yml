@@ -20,6 +20,9 @@ services:
       POSTGRES_PASSWORD: Qwerty1!
     networks:
       - aspnetcoreapp-network
+    ports:
+     - "5433:5432"
+  
 
   r7p.machinemanagerservice.webapi:
    image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
@@ -40,6 +43,26 @@ services:
      dockerfile: src/MachineManagerService/WebSimulator/Dockerfile
    ports:
     - "5002:8080"
+   networks:
+     - aspnetcoreapp-network
+
+  r7p.deliverycalculationservice.webapi:
+   image: ${DOCKER_REGISTRY-}r7p-deliverycalculationservice-webapi
+   build:
+     context: .
+     dockerfile: src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/Dockerfile
+   ports:
+    - "5003:8080"
+   networks:
+     - aspnetcoreapp-network
+
+  r7p.maingateservice.webapi:
+   image: ${DOCKER_REGISTRY-}r7p-maingateservice-webapi
+   build:
+     context: .
+     dockerfile: src/MainGateService/R7P.MainGateService.WebApi/Dockerfile
+   ports:
+    - "5004:8080"
    networks:
      - aspnetcoreapp-network
 

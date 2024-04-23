@@ -1,16 +1,23 @@
 using R7P.DeliveryCalculationService.Application.Dtos;
+using R7P.DeliveryCalculationService.Application.Mapping;
 using R7P.DeliveryCalculationService.Application.Repositories;
+using R7P.DeliveryCalculationService.Domain.Entities;
 
 namespace R7P.DeliveryCalculationService.Application.Services;
 
-public class DeliveryCalculationService(IDeliverySpecificationRepository repository) : IDeliveryCalculationService
+public class DeliveryCalculationService(
+    ISegmentRepository segmentRepository, 
+    IAddressRepository addressRepository, 
+    ICalculationRepository calculationRepository) : IDeliveryCalculationService
 {
-    private readonly IDeliverySpecificationRepository _repository = repository;
+    private readonly ISegmentRepository _segmentRepository = segmentRepository;
+    private readonly IAddressRepository _addressRepository = addressRepository;
+    private readonly ICalculationRepository _calculationRepository = calculationRepository;
 
-    public async Task<DeliverySpecificationDto[]> GetAll(CancellationToken ct = default)
+    /*public async Task<SegmentDto[]> GetAll(CancellationToken ct = default)
     {
         var deliverySpecifications = await _repository.GetAllAsync(ct);
-        var result = deliverySpecifications.Select(ds => new DeliverySpecificationDto
+        var result = deliverySpecifications.Select(ds => new SegmentDto
         {
             Id = ds.Id,
         }).ToArray();
@@ -18,19 +25,33 @@ public class DeliveryCalculationService(IDeliverySpecificationRepository reposit
         return result;
     }
 
-    public async Task<DeliverySpecificationDto> GetById(long id)
+    public async Task<SegmentDto> GetById(long id)
     {
         var ds = await _repository.GetAsync(id)
             ?? throw new Exception($"Не найдена характеристика доставки с идентифкатором {id}");
 
-        return new DeliverySpecificationDto
+        return new SegmentDto
         {
             Id = ds.Id,
         };
+    }*/
+
+    public async Task<double> GetDistance(string departureAddress, string destinationAddress)
+    {
+        var address = _addressRepository.GetAll().Where(x => x.AddressInfo == departureAddress || x.AddressInfo == destinationAddress).Take(2).ToArray();
+        var segment = _segmentRepository.GetAll().Where(x => 
+            (x.DestinationAddress == address[0] && x.DepartureAddress == address[1]) ||
+            (x.DestinationAddress == address[1] && x.DepartureAddress == address[0])).FirstOrDefault();
+
+        return segment?.Distance ?? double.NaN;
     }
 
-    public double GetDistance(long departureAddressId, long destinationAddressId, long machineId)
+    public async Task SaveCalculation(CalculationDto[] calculations)
     {
-        return 1;
+        foreach (var calculation in calculations) {
+            await _calculationRepository.AddAsync(CalculationMapper.ToDomain(calculation));
+        }
+
+        await _calculationRepository.SaveChangesAsync();
     }
 }
