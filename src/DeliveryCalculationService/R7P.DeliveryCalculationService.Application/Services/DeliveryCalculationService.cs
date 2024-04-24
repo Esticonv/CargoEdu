@@ -46,12 +46,22 @@ public class DeliveryCalculationService(
         return segment?.Distance ?? double.NaN;
     }
 
-    public async Task SaveCalculation(CalculationDto[] calculations)
+    public async Task<CalculationDto[]> SaveCalculation(CalculationDto[] calculations)
     {
+        var result = new List<CalculationDto>(calculations.Length);
+        var domainCalculation=new List<Calculation>(calculations.Length);
+
         foreach (var calculation in calculations) {
-            await _calculationRepository.AddAsync(CalculationMapper.ToDomain(calculation));
+            var entityCalculation = await _calculationRepository.AddAsync(CalculationMapper.ToDomain(calculation));
+            domainCalculation.Add(entityCalculation);
         }
 
         await _calculationRepository.SaveChangesAsync();
+
+        foreach (var calculation in domainCalculation) { 
+            result.Add(CalculationMapper.ToDto(calculation));
+        }
+
+        return result.ToArray();
     }
 }

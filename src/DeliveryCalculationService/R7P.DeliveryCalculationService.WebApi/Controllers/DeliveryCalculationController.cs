@@ -11,27 +11,9 @@ public class DeliveryCalculationController(IDeliveryCalculationService deliveryC
 {
     private readonly IDeliveryCalculationService _deliveryCalculationService = deliveryCalculationService;
 
-    /*[HttpGet("getById/{id}")]
-    public async Task<DeliverySpecificationDto> Get(int id)
-    {
-        return await _deliveryCalculationService.GetById(id);
-    }
-
-    [HttpGet("getAll")]
-    public async Task<DeliverySpecificationDto[]> GetAll()
-    {
-        return await _deliveryCalculationService.GetAll();
-    }*/
-
     [HttpGet("/{from}&{to}&{weight}&{size}")]
     public async Task<CalculationDto[]> GetCalculationsAsync(string from, string to, double weight, double size) 
     { 
-        //получить список машин
-        //выбрать свободные
-        //посчитать 
-        //сохранить расчёт вариантов
-        //вернуть варианты
-
         var http = httpClientFactory.CreateClient();
         var machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
                 
@@ -49,7 +31,7 @@ public class DeliveryCalculationController(IDeliveryCalculationService deliveryC
         }
 
         var arrCalculations = calculations.ToArray();
-        await _deliveryCalculationService.SaveCalculation(arrCalculations);
+        arrCalculations = await _deliveryCalculationService.SaveCalculation(arrCalculations);
 
         return arrCalculations;
     }
