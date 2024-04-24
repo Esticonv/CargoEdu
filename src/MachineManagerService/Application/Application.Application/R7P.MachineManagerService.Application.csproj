@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Mapping\" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="Mapping\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Mapping\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="Mapping\**" />
   </ItemGroup>
 
   <ItemGroup>
