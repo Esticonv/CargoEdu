@@ -1,4 +1,4 @@
-﻿namespace R7P.DeliveryCalculationService.Application.Dtos
+﻿namespace R7P.OrderService.WebApi.Models
 {
     public class AddressDto
     {

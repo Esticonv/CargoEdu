@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using R7P.DeliveryCalculationService.Infrastructure;
@@ -11,16 +12,15 @@ using R7P.DeliveryCalculationService.Infrastructure;
 namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425142626_Scenario2Update")]
+    partial class Scenario2Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -41,7 +41,7 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     b.HasAlternateKey("AddressInfo");
 
-                    b.ToTable("Address", "dbo");
+                    b.ToTable("AddressSpecs");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Calculation", b =>
@@ -51,9 +51,6 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<double>("CargoSize")
-                        .HasColumnType("double precision");
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
@@ -76,7 +73,7 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     b.HasIndex("DestinationAddressId");
 
-                    b.ToTable("Calculations", "dbo");
+                    b.ToTable("Calculations");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Segment", b =>
@@ -102,7 +99,7 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     b.HasIndex("DestinationAddressId");
 
-                    b.ToTable("Segments", "dbo");
+                    b.ToTable("Segments");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Calculation", b =>

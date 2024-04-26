@@ -4,9 +4,9 @@ using R7P.DeliveryCalculationService.Domain.Entities;
 
 namespace R7P.DeliveryCalculationService.Infrastructure.Initialiser;
 
-public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
+public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitializer> logger, ApplicationDbContext context)
 {
-    private readonly ILogger<ApplicationDbContextInitialiser> _logger = logger;
+    private readonly ILogger<ApplicationDbContextInitializer> _logger = logger;
     private readonly ApplicationDbContext _context = context;
 
     public async Task InitialiseAsync()

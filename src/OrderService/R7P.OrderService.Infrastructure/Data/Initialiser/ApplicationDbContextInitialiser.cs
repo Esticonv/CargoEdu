@@ -4,12 +4,12 @@ using R7P.OrderService.Domain.Entities;
 
 namespace R7P.OrderService.Infrastructure.Data.Initialiser;
 
-public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
+public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitializer> logger, ApplicationDbContext context)
 {
-    private readonly ILogger<ApplicationDbContextInitialiser> _logger = logger;
+    private readonly ILogger<ApplicationDbContextInitializer> _logger = logger;
     private readonly ApplicationDbContext _context = context;
 
-    public async Task InitialiseAsync()
+    public async Task InitializeAsync()
     {
         try
         {
@@ -17,7 +17,7 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            _logger.LogError(ex, "An error occurred while initializing the database.");
             throw;
         }
     }

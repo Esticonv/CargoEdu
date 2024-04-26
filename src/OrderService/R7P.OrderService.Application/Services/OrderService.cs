@@ -26,5 +26,6 @@ public class OrderService(IOrderRepository addressRepository) : IOrderService
     public async Task Add(OrderDto dto)
     {
         await _addressRepository.AddAsync(Mapping.OrderMapper.ToDomain(dto));
+        await _addressRepository.SaveChangesAsync();
     }
 }

@@ -8,6 +8,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 await app.UseWebServicesAsync();
