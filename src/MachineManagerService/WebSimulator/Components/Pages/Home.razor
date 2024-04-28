@@ -2,8 +2,10 @@
 @implements IDisposable
 @rendermode InteractiveServer
 @inject IHttpClientFactory ClientFactory
+@inject IConfiguration Configuration
 @inject NotifierService Notifier
 @inject TimerService Timer
+
 
 @using R7P.MachineManagerService.WebSimulator.Models
 
@@ -85,8 +87,9 @@ else {
         await InvokeAsync(() =>
         {
             try {
+                var address = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
                 var http = ClientFactory.CreateClient();
-                machines = http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine").Result;
+                machines = http.GetFromJsonAsync<MachineDto[]>(address).Result;
             }
             catch (Exception exception) {
                 exceptionMessage = exception.Message;

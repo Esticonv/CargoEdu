@@ -6,10 +6,11 @@ namespace R7P.OrderService.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class OrderController(IOrderService orderService, IHttpClientFactory httpClientFactory) : ControllerBase
+public class OrderController(IOrderService orderService, IHttpClientFactory httpClientFactory, IConfiguration configuration) : ControllerBase
 {
     private readonly IOrderService _orderService = orderService;
     private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+    private readonly IConfiguration _configuration=configuration;
 
     [HttpGet("getById/{id}")]
     public async Task<OrderDto> Get(long id)
@@ -26,8 +27,9 @@ public class OrderController(IOrderService orderService, IHttpClientFactory http
     [HttpPut("createOrder/{customerId}&{calculationId}")]
     public async Task Add(long customerId, long calculationId)
     {
+        var address = _configuration.GetSection("ServicesUri").GetValue<string>("DeliveryCalculationService_DeliveryCalculation");
         var http = _httpClientFactory.CreateClient();
-        var calculation = await http.GetFromJsonAsync<Models.CalculationDto>($"http://r7p.deliverycalculationservice.webapi:8080/DeliveryCalculation/{calculationId}");
+        var calculation = await http.GetFromJsonAsync<Models.CalculationDto>($"{address}/{calculationId}");
 
         var order=new OrderDto {
             CustomerId = customerId,

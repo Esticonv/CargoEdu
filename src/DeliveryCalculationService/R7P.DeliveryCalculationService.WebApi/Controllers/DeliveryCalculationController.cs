@@ -7,9 +7,12 @@ namespace R7P.DeliveryCalculationService.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class DeliveryCalculationController(IDeliveryCalculationService deliveryCalculationService, IHttpClientFactory httpClientFactory) : ControllerBase
+public class DeliveryCalculationController(
+    IDeliveryCalculationService deliveryCalculationService, IHttpClientFactory httpClientFactory, IConfiguration configuration) 
+    : ControllerBase
 {
     private readonly IDeliveryCalculationService _deliveryCalculationService = deliveryCalculationService;
+    private readonly IConfiguration _configuration = configuration;
 
     [HttpGet("{id}")]
     public async Task<CalculationDto> GetCalculationsAsync(long id)
@@ -21,7 +24,9 @@ public class DeliveryCalculationController(IDeliveryCalculationService deliveryC
     public async Task<CalculationDto[]> GetCalculationsAsync(string from, string to, double size) 
     { 
         var http = httpClientFactory.CreateClient();
-        var machines = await http.GetFromJsonAsync<MachineDto[]>("http://r7p.machinemanagerservice.webapi:8080/machine");
+
+        var address = _configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+        var machines = await http.GetFromJsonAsync<MachineDto[]>(address);
                 
         var path = await _deliveryCalculationService.GetDistance(from, to);
         if (double.IsNaN(path.Distance)) {
