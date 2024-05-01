@@ -11,6 +11,17 @@ services:
      ports:
         - "5433:5432"  
 
+   r7p_rabbitmq:
+     container_name: 'rabbitMQ'
+     image: rabbitmq:3.13.1-management
+     hostname: r7p_rabbitmq
+     environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+     ports:
+       - 15672:15672
+
+
    r7p.maingateservice.webapi:
      image: ${DOCKER_REGISTRY-}r7p-maingateservice-webapi
      build:
