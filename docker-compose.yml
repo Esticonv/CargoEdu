@@ -20,10 +20,14 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
      ports:
        - 15672:15672
+     networks:
+      - aspnetcoreapp-network
 
 
    r7p.maingateservice.webapi:
      image: ${DOCKER_REGISTRY-}r7p-maingateservice-webapi
+     environment:
+       ServicesUri__RabbitMQ: r7p_rabbitmq
      build:
       context: .
       dockerfile: src/MainGateService/R7P.MainGateService.WebApi/Dockerfile

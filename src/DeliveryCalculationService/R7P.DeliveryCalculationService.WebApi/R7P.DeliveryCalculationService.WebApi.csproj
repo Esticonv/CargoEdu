@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\SharedModels\R7P.SharedModels\R7P.SharedModels.csproj" />
 		<ProjectReference Include="..\R7P.DeliveryCalculationService.Infrastructure\R7P.DeliveryCalculationService.Infrastructure.csproj" />
 	</ItemGroup>
 

@@ -16,4 +16,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedModels\R7P.SharedModels\R7P.SharedModels.csproj" />
+  </ItemGroup>
+
 </Project>
