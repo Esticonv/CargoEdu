@@ -8,15 +8,15 @@ namespace R7P.MainGateService.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CalculationController(IPublishEndpoint publishEndpoint) : ControllerBase
+    public class CalculationController(IRequestClient<CalculateCost> client, IPublishEndpoint publishEndpoint) : ControllerBase
     {
-        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
-        [HttpPost("{orderDto}")]
-        public async Task<IActionResult> CreateCalculation(CalculationRequestDto orderDto)
+        [HttpPost("{calculateCost}")]
+        public async Task<IActionResult> RequestCalculations(CalculateCost calculateCost)
         {
-            await _publishEndpoint.Publish(orderDto);
-            return Ok();
+            var response=await client.GetResponse<CalculateCostResult>(calculateCost);
+            //await _publishEndpoint.Publish(calculateCost);
+
+            return Ok(response.Message);
         }
     }
 }

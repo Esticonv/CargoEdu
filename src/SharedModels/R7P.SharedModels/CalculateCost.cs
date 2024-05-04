@@ -1,6 +1,6 @@
 ﻿namespace R7P.SharedModels
 {
-    public record class CalculationRequestDto
+    public record class CalculateCost
     {
         public required string From { get; set; }
         public required string To { get; set; }

@@ -40,6 +40,7 @@ services:
     image: ${DOCKER_REGISTRY-}r7porderservicewebapi
     environment:
      ServicesUri__DeliveryCalculationService_DeliveryCalculation: http://r7p.deliverycalculationservice.webapi:8080/deliverycalculation
+     ServicesUri__RabbitMQ: r7p_rabbitmq
     build:
       context: .
       dockerfile: src/OrderService/R7P.OrderService.WebApi/Dockerfile
@@ -78,6 +79,7 @@ services:
     image: ${DOCKER_REGISTRY-}r7p-deliverycalculationservice-webapi
     environment:
      ServicesUri__MachineManagerService_Machine: http://r7p.machinemanagerservice.webapi:8080/machine
+     ServicesUri__RabbitMQ: r7p_rabbitmq
     build:
      context: .
      dockerfile: src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/Dockerfile
