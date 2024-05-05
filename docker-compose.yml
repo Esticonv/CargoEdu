@@ -1,70 +1,92 @@
 version: '3.4'
 
 services:
-  r7p.orderservice.webapi:
+   r7p_postgres:
+     container_name: 'postgres'
+     image: postgres
+     environment:      
+        POSTGRES_PASSWORD: Qwerty1!
+     networks:
+        - aspnetcoreapp-network
+     ports:
+        - "5433:5432"  
+
+   r7p_rabbitmq:
+     container_name: 'rabbitMQ'
+     image: rabbitmq:3.13.1-management
+     hostname: r7p_rabbitmq
+     environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+     ports:
+       - 15672:15672
+     networks:
+      - aspnetcoreapp-network
+
+
+   r7p.maingateservice.webapi:
+     image: ${DOCKER_REGISTRY-}r7p-maingateservice-webapi
+     environment:
+       ServicesUri__RabbitMQ: r7p_rabbitmq
+     build:
+      context: .
+      dockerfile: src/MainGateService/R7P.MainGateService.WebApi/Dockerfile
+     ports:
+      - "5000:8080"
+     networks:
+      - aspnetcoreapp-network
+
+   r7p.orderservice.webapi:
     image: ${DOCKER_REGISTRY-}r7porderservicewebapi
+    environment:
+     ServicesUri__DeliveryCalculationService_DeliveryCalculation: http://r7p.deliverycalculationservice.webapi:8080/deliverycalculation
+     ServicesUri__RabbitMQ: r7p_rabbitmq
     build:
       context: .
       dockerfile: src/OrderService/R7P.OrderService.WebApi/Dockerfile
     ports:
-     - "5000:8080"
+     - "5001:8080"
     depends_on:
      - "r7p_postgres"
     networks:
-      - aspnetcoreapp-network
+      - aspnetcoreapp-network      
 
-  r7p_postgres:
-    container_name: 'postgres'
-    image: postgres
-    environment:      
-      POSTGRES_PASSWORD: Qwerty1!
-    networks:
-      - aspnetcoreapp-network
-    ports:
-     - "5433:5432"
-  
-
-  r7p.machinemanagerservice.webapi:
-   image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
-   build:
+   r7p.machinemanagerservice.webapi:
+    image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
+    build:
      context: .
      dockerfile: src/MachineManagerService/WebApi/Dockerfile
-   ports:
-    - "5001:8080"
-   depends_on:
+    ports:
+    - "5002:8080"
+    depends_on:
     - "r7p_postgres"
-   networks:
+    networks:
      - aspnetcoreapp-network
 
-  r7p.machinemanagerservice.simulator:
-   image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-simulator
-   build:
+   r7p.machinemanagerservice.simulator:
+    image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-simulator
+    environment:
+     ServicesUri__MachineManagerService_Machine: http://r7p.machinemanagerservice.webapi:8080/machine
+    build:
      context: .
      dockerfile: src/MachineManagerService/WebSimulator/Dockerfile
-   ports:
-    - "5002:8080"
-   networks:
+    ports:
+    - "5004:8080"
+    networks:
      - aspnetcoreapp-network
 
-  r7p.deliverycalculationservice.webapi:
-   image: ${DOCKER_REGISTRY-}r7p-deliverycalculationservice-webapi
-   build:
+   r7p.deliverycalculationservice.webapi:
+    image: ${DOCKER_REGISTRY-}r7p-deliverycalculationservice-webapi
+    environment:
+     ServicesUri__MachineManagerService_Machine: http://r7p.machinemanagerservice.webapi:8080/machine
+     ServicesUri__RabbitMQ: r7p_rabbitmq
+    build:
      context: .
      dockerfile: src/DeliveryCalculationService/R7P.DeliveryCalculationService.WebApi/Dockerfile
-   ports:
-    - "5003:8080"
-   networks:
-     - aspnetcoreapp-network
-
-  r7p.maingateservice.webapi:
-   image: ${DOCKER_REGISTRY-}r7p-maingateservice-webapi
-   build:
-     context: .
-     dockerfile: src/MainGateService/R7P.MainGateService.WebApi/Dockerfile
-   ports:
-    - "5004:8080"
-   networks:
-     - aspnetcoreapp-network
+    ports:
+     - "5003:8080"
+    networks:
+     - aspnetcoreapp-network     
 
 networks:
   aspnetcoreapp-network:

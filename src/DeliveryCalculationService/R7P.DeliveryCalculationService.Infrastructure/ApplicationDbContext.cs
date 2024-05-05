@@ -14,16 +14,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Segment>().HasKey(x => x.Id);
-        modelBuilder.Entity<Segment>().HasOne(x => x.DepartureAddress).WithMany();
-        modelBuilder.Entity<Segment>().HasOne(x => x.DestinationAddress).WithMany();
-        modelBuilder.Entity<Segment>().HasAlternateKey(x => new { x.DepartureAddressId, x.DestinationAddressId });
-
-        modelBuilder.Entity<Address>().HasKey(x => x.Id);
-        modelBuilder.Entity<Address>().HasAlternateKey(x => x.AddressInfo);
-
-        modelBuilder.Entity<Calculation>().HasKey(x => x.Id);
+        base.OnModelCreating(modelBuilder);        
     }
 }

@@ -18,6 +18,9 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -38,7 +41,7 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     b.HasAlternateKey("AddressInfo");
 
-                    b.ToTable("AddressSpecs");
+                    b.ToTable("Address", "dbo");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Calculation", b =>
@@ -49,15 +52,31 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<double>("CargoSize")
+                        .HasColumnType("double precision");
+
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
 
                     b.Property<TimeSpan>("DeliveryTime")
                         .HasColumnType("interval");
 
+                    b.Property<long>("DepartureAddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DestinationAddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("MachineId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Calculations");
+                    b.HasIndex("DepartureAddressId");
+
+                    b.HasIndex("DestinationAddressId");
+
+                    b.ToTable("Calculations", "dbo");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Segment", b =>
@@ -83,7 +102,26 @@ namespace R7P.DeliveryCalculationService.Infrastructure.Migrations
 
                     b.HasIndex("DestinationAddressId");
 
-                    b.ToTable("Segments");
+                    b.ToTable("Segments", "dbo");
+                });
+
+            modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Calculation", b =>
+                {
+                    b.HasOne("R7P.DeliveryCalculationService.Domain.Entities.Address", "DepartureAddress")
+                        .WithMany()
+                        .HasForeignKey("DepartureAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("R7P.DeliveryCalculationService.Domain.Entities.Address", "DestinationAddress")
+                        .WithMany()
+                        .HasForeignKey("DestinationAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DepartureAddress");
+
+                    b.Navigation("DestinationAddress");
                 });
 
             modelBuilder.Entity("R7P.DeliveryCalculationService.Domain.Entities.Segment", b =>

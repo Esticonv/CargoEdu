@@ -14,10 +14,10 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString).UseLazyLoadingProxies();
         });
 
-        services.AddScoped<ApplicationDbContextInitialiser>();
+        services.AddScoped<ApplicationDbContextInitializer>();
 
         services.AddScoped<ISegmentRepository, SegmentRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();

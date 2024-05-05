@@ -11,7 +11,7 @@ using R7P.OrderService.Infrastructure.Data;
 namespace R7P.OrderService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240311151629_Initial")]
+    [Migration("20240426125444_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -23,40 +23,6 @@ namespace R7P.OrderService.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("R7P.OrderService.Domain.Entities.Address", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("AddressInfo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses", "dbo");
-                });
 
             modelBuilder.Entity("R7P.OrderService.Domain.Entities.Customer", b =>
                 {
@@ -71,19 +37,11 @@ namespace R7P.OrderService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -101,13 +59,21 @@ namespace R7P.OrderService.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<double>("CargoSize")
+                        .HasColumnType("double precision");
+
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("DepartureAddressId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("DepartureAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<long>("DestinationAddressId")
+                    b.Property<string>("DestinationAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("MachineId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Status")
@@ -116,16 +82,9 @@ namespace R7P.OrderService.Infrastructure.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<float>("Volume")
-                        .HasColumnType("real");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("DepartureAddressId");
-
-                    b.HasIndex("DestinationAddressId");
 
                     b.ToTable("Orders", "dbo");
                 });
@@ -138,23 +97,7 @@ namespace R7P.OrderService.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("R7P.OrderService.Domain.Entities.Address", "DepartureAddress")
-                        .WithMany()
-                        .HasForeignKey("DepartureAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("R7P.OrderService.Domain.Entities.Address", "DestinationAddress")
-                        .WithMany()
-                        .HasForeignKey("DestinationAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("DepartureAddress");
-
-                    b.Navigation("DestinationAddress");
                 });
 
             modelBuilder.Entity("R7P.OrderService.Domain.Entities.Customer", b =>

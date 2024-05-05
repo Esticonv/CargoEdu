@@ -4,12 +4,12 @@ using R7P.OrderService.Domain.Entities;
 
 namespace R7P.OrderService.Infrastructure.Data.Initialiser;
 
-public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
+public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitializer> logger, ApplicationDbContext context)
 {
-    private readonly ILogger<ApplicationDbContextInitialiser> _logger = logger;
+    private readonly ILogger<ApplicationDbContextInitializer> _logger = logger;
     private readonly ApplicationDbContext _context = context;
 
-    public async Task InitialiseAsync()
+    public async Task InitializeAsync()
     {
         try
         {
@@ -17,7 +17,7 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            _logger.LogError(ex, "An error occurred while initializing the database.");
             throw;
         }
     }
@@ -38,25 +38,25 @@ public class ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitial
 
     private async Task TrySeedAsync()
     {
-
         if (!_context.Customers.Any())
         {
             _context.Customers.Add(new Customer
             {
-                FirstName = "ADMIN",
-                LastName = "ADMIN",
-                UserName = "ADMIN",
-                Email = "admin@mail.ru",
-                Phone = "+7-950-469-99-99"
+                Name = "Bender",
+                Email = "Bender@planetExpress.ru",
+                Phone = "+7-29"
             });
 
-            _context.Addresses.Add(new Address
-            {
-                FirstName = "Иван",
-                LastName = "Иванов",
-                AddressInfo = "г. Москва, ул. Ленина, д.1, кв. 10",
-                Email = "ivanov@mail.ru",
-                PhoneNumber = "+7-950-123-12-12"
+            _context.Customers.Add(new Customer {
+                Name = "Fry",
+                Email = "Fry@planetExpress.ru",
+                Phone = "+6-950-4"
+            });
+
+            _context.Customers.Add(new Customer {
+                Name = "Leela",
+                Email = "Leela@planetExpress.ru",
+                Phone = "+3-234"
             });
 
             await _context.SaveChangesAsync();

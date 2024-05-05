@@ -18,15 +18,5 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .WithMany(x => x.Orders)    
             .HasForeignKey(x => x.CustomerId)    
             .IsRequired();
-
-        builder.HasOne(x => x.DepartureAddress)
-            .WithMany()
-            .HasForeignKey(x => x.DepartureAddressId)
-            .IsRequired();
-
-        builder.HasOne(x => x.DestinationAddress)
-            .WithMany()
-            .HasForeignKey(x => x.DestinationAddressId)
-            .IsRequired();
     }
 }

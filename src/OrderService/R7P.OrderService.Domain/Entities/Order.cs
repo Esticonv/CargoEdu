@@ -10,17 +10,15 @@ public class Order : IEntity<long>
 
     public required OrderStatus Status { get; set;}
         
-    public required float Volume  { get; set; }
+    public required double CargoSize  { get; set; }
 
-    public required long CustomerId { get; set;}
+    public long CustomerId { get; set;}
 
-    public required long DepartureAddressId { get; set; }
+    public Customer Customer { get; set; }
+    
+    public required string DepartureAddress { get; set; }
 
-    public required long DestinationAddressId { get; set; }
+    public required string DestinationAddress { get; set; }
 
-    public required Customer Customer { get; set; }
-
-    public required Address DepartureAddress { get; set; }
-
-    public required Address DestinationAddress { get; set; }
+    public long MachineId {  get; set; }
 }
