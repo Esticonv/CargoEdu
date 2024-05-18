@@ -10,7 +10,7 @@ namespace R7P.MachineManagerService.Application.Implementations
     {
         private readonly IMachineRepository _machineRepository = machineRepository;
 
-        public async Task<List<MachineDto>> GetAll()
+        public async Task<List<MachineDto>> GetAllAsync()
         {
             var machines= await _machineRepository.GetAllAsync(CancellationToken.None,true);
 
@@ -22,7 +22,7 @@ namespace R7P.MachineManagerService.Application.Implementations
             return results;
         }
 
-        public async Task<MachineDto> GetById(int id)
+        public async Task<MachineDto> GetByIdAsync(long id)
         {
             var machine = await _machineRepository.GetAsync(id)
                 ?? throw new InvalidOperationException($"Не найден адрес с идентифкатором {id}");
@@ -30,7 +30,7 @@ namespace R7P.MachineManagerService.Application.Implementations
             return MachineMapper.ToDto(machine);
         }
 
-        public async Task<MachineDto> Add(MachineDto machine)
+        public async Task<MachineDto> AddAsync(MachineDto machine)
         {
             var machineEntity = MachineMapper.ToDomain(machine);
             machineEntity.Tasks ??= [new MachineTask()];
@@ -38,10 +38,19 @@ namespace R7P.MachineManagerService.Application.Implementations
             _machineRepository.Add(machineEntity);
             await _machineRepository.SaveChangesAsync();
 
-            return GetById(machineEntity.Id).Result;
+            return MachineMapper.ToDto(machineEntity);
         }
 
-        public async Task<bool> Delete(int id)
+        /*public async Task<MachineDto> AddTask(MachineDto machine)
+        {
+            var machineEntity = _machineRepository.Get(machine.Id);
+
+            await _machineRepository.SaveChangesAsync();
+
+            return MachineMapper.ToDto(machineEntity);
+        }*/
+
+        public async Task<bool> DeleteAsync(long id)
         {
             bool result=_machineRepository.Delete(id);
             await _machineRepository.SaveChangesAsync();

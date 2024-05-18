@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace R7P.MachineManagerService.Application.Models
+﻿namespace R7P.MachineManagerService.Application.Models
 {
     public class MachineTaskDto
     {
+        public long Id { get; set; }
+        public long MachineId { get; set; }
         public int TaskOrder { get; set; }
         public int TaskType { get; set; }
         public string Departure { set; get; }

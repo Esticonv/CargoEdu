@@ -1,9 +1,9 @@
 ﻿namespace R7P.MachineManagerService.Domain.Entities
 {
-    public class MachineTask : IEntity<int>
+    public class MachineTask : IEntity<long>
     {
-        public int Id { get; set; }
-        public int MachineId { get; set; }
+        public long Id { get; set; }
+        public long MachineId { get; set; }
         public virtual Machine? Machine {get;set;}
 
         /// <summary>

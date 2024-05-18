@@ -2,8 +2,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using R7P.MachineManagerService.Application.Dtos;
 using R7P.MachineManagerService.Application.Interfaces;
 using System.Net.Http.Json;
+using System.Linq;
+using R7P.SharedModels;
+using MassTransit;
+using System;
 
 namespace R7P.MachineManagerService.Application.Implementations
 { 
@@ -34,21 +39,38 @@ namespace R7P.MachineManagerService.Application.Implementations
                     logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 }
 
-                /*var machineService = serviceProvider.GetRequiredService<IMachineService>();
-                var address = configuration.GetSection("ServicesUri").GetValue<string>("OrderService_Orders_GetAll");
-                var http = httpClientFactory.CreateClient();
-                
-                var orders = await http.GetFromJsonAsync<int?>($"{address}")
-                    ?? throw new InvalidOperationException("Bad request to CalculationDto");*/
-                //get Pending Orders
-                //get Machines
+                try {
+                    //var machineService = serviceProvider.GetRequiredService<IMachineService>();
+                    var machineTaskService = serviceProvider.GetRequiredService<IMachineTaskService>();
+                    var publishEndpoint = serviceProvider.GetRequiredService<IPublishEndpoint>();
 
-                //foreach (var order in orders){
-                //create and Add MachineTask
-                //}
+                    var address = configuration.GetSection("ServicesUri").GetValue<string>("OrderService_Order");
+                    var http = httpClientFactory.CreateClient();
+                    var orders = await http.GetFromJsonAsync<OrderDto[]?>($"{address}/getAll")
+                        ?? throw new InvalidOperationException("Bad request to CalculationDto");
+                    var pendingOrders = orders.Where(x => x.Status == OrderStatus.Pending);
 
+                    foreach (var pendingOrder in pendingOrders) {
+                        var machineTaskDto = new Models.MachineTaskDto() {
+                            MachineId = pendingOrder.MachineId,
+                            Departure = pendingOrder.DepartureAddress,
+                            Destination = pendingOrder.DestinationAddress,
+                            TaskType = 1
+                        };
+                        await machineTaskService.AddAsync(machineTaskDto);
 
-                await Task.Delay(2000, stoppingToken);
+                        await publishEndpoint.Publish(
+                            new UpdateOrder() {
+                                OrderId = pendingOrder.Id,
+                                Status = (int)OrderStatus.Processing
+                            });
+                    }
+                }
+                catch (Exception ex) {
+                    logger.LogError(ex.Message);
+                }
+
+                await Task.Delay(10000, stoppingToken);
             }
         }
 

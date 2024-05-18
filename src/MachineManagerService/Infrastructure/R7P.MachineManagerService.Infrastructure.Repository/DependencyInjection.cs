@@ -10,6 +10,7 @@ namespace R7P.MachineManagerService.Infrastructure.Repository
         public static IServiceCollection AddInfrastructureRepositoryServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IMachineRepository, MachineRepository>();
+            services.AddScoped<IMachineTaskRepository, MachineTaskRepository>();
 
             return services;
         }

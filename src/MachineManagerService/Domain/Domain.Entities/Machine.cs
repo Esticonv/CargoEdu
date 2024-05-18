@@ -1,8 +1,8 @@
 ﻿namespace R7P.MachineManagerService.Domain.Entities
 {
-    public class Machine : IEntity<int>
+    public class Machine : IEntity<long>
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public double VolumeCapacity { get; set; }
         public double WeightCapacity { get; set; }

@@ -20,25 +20,25 @@ namespace R7P.MachineManagerService.WebApi.Controllers
         [HttpGet("{id}")]
         async public Task<MachineDto> Get(int id)
         {
-             return await _machineService.GetById(id);
+             return await _machineService.GetByIdAsync(id);
         }
 
         [HttpGet()]
         async public Task<List<MachineDto>> GetAll()
         {
-            return await _machineService.GetAll();
+            return await _machineService.GetAllAsync();
         }
 
         [HttpPost]
         async public Task<MachineDto> Add(MachineDto machine)
         {            
-            return await _machineService.Add(machine);
+            return await _machineService.AddAsync(machine);
         }
 
         [HttpDelete("{id}")]
         async public Task<bool> Delete(int id)
         {
-            return await _machineService.Delete(id);
+            return await _machineService.DeleteAsync(id);
         }
     }
 }

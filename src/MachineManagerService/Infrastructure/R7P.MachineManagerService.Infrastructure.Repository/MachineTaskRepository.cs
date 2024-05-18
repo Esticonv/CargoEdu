@@ -5,9 +5,9 @@ using R7P.MachineManagerService.Infrastructure.EntityFramework;
 
 namespace R7P.MachineManagerService.Infrastructure.Repository
 {
-    public class MachineRepository: Repository<Machine, long>, IMachineRepository 
+    public class MachineTaskRepository : Repository<MachineTask, long>, IMachineTaskRepository 
     {
-        public MachineRepository(ApplicationDbContext context): base(context)
+        public MachineTaskRepository(ApplicationDbContext context): base(context)
         {
         }
     }

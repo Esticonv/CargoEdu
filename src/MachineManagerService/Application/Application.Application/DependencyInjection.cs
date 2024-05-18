@@ -11,7 +11,7 @@ public static class DependencyInjection
     {
         services.AddHostedService<SchedulerService>();
         services.AddScoped<IMachineService, MachineService>();
-
+        services.AddScoped<IMachineTaskService, MachineTaskService>();
 
         return services;
     }

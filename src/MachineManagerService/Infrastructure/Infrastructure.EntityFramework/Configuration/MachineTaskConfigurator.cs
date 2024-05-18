@@ -8,10 +8,7 @@ namespace R7P.MachineManagerService.Infrastructure.EntityFramework.Configuration
     {
         public void Configure(EntityTypeBuilder<MachineTask> builder)
         {
-            builder.HasKey(k => new {
-                k.MachineId,
-                k.TaskOrder
-            });
+
         }
     }
 }
