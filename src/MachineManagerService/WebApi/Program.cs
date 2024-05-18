@@ -15,7 +15,9 @@ namespace R7P.MachineManagerService.WebApi
             builder.Services.AddApplicationServices(builder.Configuration);            
 
             builder.Services.AddInfrastructureEFServices(builder.Configuration); 
-            builder.Services.AddInfrastructureRepositoryServices(builder.Configuration);            
+            builder.Services.AddInfrastructureRepositoryServices(builder.Configuration);
+
+            builder.Services.AddHttpClient();
 
             //Add web services
             builder.Services.AddControllers();
