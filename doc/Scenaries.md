@@ -20,3 +20,16 @@ O  -> DC [HTTP] запрос результата расчётов (in: id)
 DC -> O  [HTTP] возврат (out: calculationId, deliveryTime, cost)
 O  -- Сохранение расчёта
 O  -> UI [RMQ-Respond] возврат статуса что всё сделано
+
+
+#Описание сервисов
+
+##1.MachineManagerService (ММ)
+###SchedulerService: BackgroundService
+While loop с паузами по таймеру
+MM.SD -> O [HTTP] Запрос заказов требующих обработки
+	Для каждого:
+	MM.SD -- Поиск машины, для которой был оформлен заказ (сценарий #2)
+	MM.SD -- Добавление задачи на доставку для машины
+	MM.SD -> O [RMQ-Publish] Обновление статуса заказа
+

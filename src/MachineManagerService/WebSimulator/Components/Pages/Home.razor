@@ -13,12 +13,12 @@
 
 <h1>Машины</h1>
 
-<button @onclick="OnStartButtomClick"> Start </button>
-<button @onclick="OnStopButtomClick" disabled> Stop </button>
+<button @onclick="OnStartButtomClick" disabled=@started> Start </button>
+<button @onclick="OnStopButtomClick" disabled=@(!started)> Stop </button>
 
 <p>Last update: @lastUpdate</p>
 
-<p>Запуск: @started, Ошибки: @exceptionMessage </p>
+<p>Ошибки: @exceptionMessage </p>
 
 @if (machines == null) {
     <p><em>Press start</em></p>
@@ -42,8 +42,6 @@ else {
 
 
 
-
-
 @code {
     private bool started = false;
 
@@ -51,45 +49,35 @@ else {
     private string? exceptionMessage;
 
     private string lastUpdate=string.Empty;
-
-    private CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-    private CancellationToken cancellationToken;
+    private string? _address;
 
     protected override async Task OnInitializedAsync()
     {
-        cancellationToken = cancelTokenSource.Token;
-        Notifier.Notify += OnNotify;
-    }
-
-
-    protected override async Task OnParametersSetAsync()
-    {       
+        _address = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+        await Timer.Start();
     }
 
     private void OnStartButtomClick()
     {
-        if (started == false)
-        {
-            started = true;
-            _ = Task.Run(Timer.Start, cancellationToken);
-        }
+        started = true;
+        Notifier.Notify += OnNotify;
+        
     }
 
     private void OnStopButtomClick()
     {
         started = false;
-        cancelTokenSource.Cancel();
-        //Timer.Stop();
+        Notifier.Notify -= OnNotify;
+        machines = null;
     }
 
     public async Task OnNotify(string key, int value)
     {
         await InvokeAsync(() =>
         {
-            try {
-                var address = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+            try {                
                 var http = ClientFactory.CreateClient();
-                machines = http.GetFromJsonAsync<MachineDto[]>(address).Result;
+                machines = http.GetFromJsonAsync<MachineDto[]>(_address).Result;
             }
             catch (Exception exception) {
                 exceptionMessage = exception.Message;

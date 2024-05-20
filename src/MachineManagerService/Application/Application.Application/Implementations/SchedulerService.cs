@@ -40,7 +40,6 @@ namespace R7P.MachineManagerService.Application.Implementations
                 }
 
                 try {
-                    //var machineService = serviceProvider.GetRequiredService<IMachineService>();
                     var machineTaskService = serviceProvider.GetRequiredService<IMachineTaskService>();
                     var publishEndpoint = serviceProvider.GetRequiredService<IPublishEndpoint>();
 

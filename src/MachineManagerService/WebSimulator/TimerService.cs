@@ -4,9 +4,7 @@
         ILogger<TimerService> logger) : IDisposable
     {
         private int elapsedCount;
-        private readonly static TimeSpan tickRate = TimeSpan.FromSeconds(3);
-        private readonly ILogger<TimerService> logger = logger;
-        private readonly NotifierService notifier = notifier;
+        private readonly static TimeSpan tickRate = TimeSpan.FromSeconds(10);
         private PeriodicTimer? timer;
 
         public async Task Start()
