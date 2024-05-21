@@ -2,6 +2,8 @@
 {
     public class MachineTaskDto
     {
+        public long Id { get; set; }
+        public long MachineId { get; set; }
         public int TaskOrder { get; set; }
         public int TaskType { get; set; }
         public string Departure { set; get; }

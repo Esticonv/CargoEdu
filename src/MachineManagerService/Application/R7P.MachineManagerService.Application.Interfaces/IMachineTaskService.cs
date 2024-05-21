@@ -8,5 +8,7 @@ namespace R7P.MachineManagerService.Application.Interfaces
         Task<Models.MachineTaskDto> GetByIdAsync(long id);
         Task<Models.MachineTaskDto> AddAsync(Models.MachineTaskDto machineTask);
         Task<bool> DeleteAsync(long id);
+
+        Task UpdateAsync(Models.MachineTaskDto machineTask);
     }
 }

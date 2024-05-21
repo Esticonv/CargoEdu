@@ -12,10 +12,10 @@ namespace R7P.MachineManagerService.Application.Implementations
 
         public async Task<MachineTaskDto> GetByIdAsync(long id)
         {
-            var machine = await _machineTaskRepository.GetAsync(id)
+            var machineTask = await _machineTaskRepository.GetAsync(id)
                 ?? throw new InvalidOperationException($"Не найден адрес с идентифкатором {id}");
 
-            return MachineTaskMapper.ToDto(machine);
+            return MachineTaskMapper.ToDto(machineTask);
         }
 
         public async Task<MachineTaskDto> AddAsync(MachineTaskDto machineTask)
@@ -33,6 +33,15 @@ namespace R7P.MachineManagerService.Application.Implementations
             bool result= _machineTaskRepository.Delete(id);
             await _machineTaskRepository.SaveChangesAsync();
             return result;
+        }
+
+        public async Task UpdateAsync(MachineTaskDto machineTaskDto)
+        {
+            var machineTask = await _machineTaskRepository.GetAsync(machineTaskDto.Id)
+                ?? throw new InvalidOperationException($"Не найден адрес с идентифкатором {machineTaskDto.Id}");
+
+            MachineTaskMapper.ToDomain(machineTaskDto, machineTask);
+            await _machineTaskRepository.SaveChangesAsync();
         }
     }
 }

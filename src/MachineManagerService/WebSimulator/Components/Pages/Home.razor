@@ -25,18 +25,19 @@
 }
 else {
     <ul>
-        @foreach (var machine in machines) {
-            <li>        
-                @machine.Name
+    @foreach (var machine in machines) {
+        <li>        
+        @machine.Name
 
-                @foreach(var task in machine.Tasks) {
-                    <p>@task.ToString();</p>
-                }
-                @foreach (var cargo in machine.Сargoes) {
-                    <p>@cargo.ToString();</p>
-                }
-            </li>
+        @foreach(var task in machine.Tasks) {
+            <p>@task.ToString();</p>
+            <progress value=@task.Progress> </progress>
         }
+        @foreach (var cargo in machine.Сargoes) {
+            <p>@cargo.ToString();</p>
+        }
+        </li>
+    }
     </ul>
 }
 
@@ -49,11 +50,13 @@ else {
     private string? exceptionMessage;
 
     private string lastUpdate=string.Empty;
-    private string? _address;
+    private string? _machineAddress;
+    private string? _machineTaskAddress;
 
     protected override async Task OnInitializedAsync()
     {
-        _address = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+        _machineAddress = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+        _machineTaskAddress = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_MachineTask");
         await Timer.Start();
     }
 
@@ -61,7 +64,7 @@ else {
     {
         started = true;
         Notifier.Notify += OnNotify;
-        
+
     }
 
     private void OnStopButtomClick()
@@ -77,7 +80,27 @@ else {
         {
             try {                
                 var http = ClientFactory.CreateClient();
-                machines = http.GetFromJsonAsync<MachineDto[]>(_address).Result;
+                machines = http.GetFromJsonAsync<MachineDto[]>(_machineAddress).Result;
+
+                if (machines != null){
+                    foreach (var machine in machines){
+                        
+                        machine.Tasks.Remove(machine.Tasks.FirstOrDefault(x => x.TaskType == 0));//Remove IdleTask from display                        
+                        
+                        var movingTask = machine.Tasks.FirstOrDefault(x => x.TaskType == 1);
+                        if (movingTask != null) {
+                            if (movingTask.Progress < 1.0d) {
+                                movingTask.Progress += 0.1d;
+                            }
+                            if (movingTask.Progress >= 1.0d) {
+                                movingTask.Progress = 1.0d;
+                                movingTask.TaskType = 2;//Completed
+                            }
+                            http.PutAsJsonAsync(_machineTaskAddress, movingTask);
+                        }
+                        
+                    }
+                }
             }
             catch (Exception exception) {
                 exceptionMessage = exception.Message;
