@@ -22,18 +22,20 @@ internal class CalculateCostConsumer(
         var address = configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
         var machines = await http.GetFromJsonAsync<MachineDto[]>(address) ?? throw new InvalidOperationException("Bad request for MachineDto");
 
-        var path = await deliveryCalculationService.GetDistance(calculateCostRequest.From, calculateCostRequest.To);
-        if (double.IsNaN(path.Distance)) {
+        var path = await deliveryCalculationService.GetDistanceAsync(calculateCostRequest.From, calculateCostRequest.To);
+        var pathDistance=path.Sum(x => x.Distance);
+        
+        if (pathDistance == 0) {
             throw new ArgumentException($"Path not found from:{calculateCostRequest.From} to:{calculateCostRequest.To}");
         }
 
         var calculations = new List<CalculationDto>();
         foreach (var machine in machines) {
             var calculation = new CalculationDto() {
-                DeliveryTime = TimeSpan.FromSeconds(path.Distance / machine.MaxSpeed),
-                Cost = (decimal)path.Distance * machine.CostPerDistance,
-                DepartureAddressId = path.DepartureAddressId,
-                DestinationAddressId = path.DestinationAddressId,
+                DeliveryTime = TimeSpan.FromSeconds(pathDistance / machine.MaxSpeed),
+                Cost = (decimal)pathDistance * machine.CostPerDistance,
+                DepartureAddressId = (await deliveryCalculationService.GetAddressAsync(calculateCostRequest.From)).Id,
+                DestinationAddressId = (await deliveryCalculationService.GetAddressAsync(calculateCostRequest.To)).Id,
                 MachineId = machine.Id,
                 CargoSize = calculateCostRequest.Size,
             };

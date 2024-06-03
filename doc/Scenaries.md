@@ -33,3 +33,7 @@ MM.SD -> O [HTTP] Запрос заказов требующих обработки
 	MM.SD -- Добавление задачи на доставку для машины
 	MM.SD -> O [RMQ-Publish] Обновление статуса заказа
 
+##2.DeliveryCalculationService (DC)
+###Pathfind
+Поиск пути
+(in: from, to) (out: segment{from, to, distance}[])

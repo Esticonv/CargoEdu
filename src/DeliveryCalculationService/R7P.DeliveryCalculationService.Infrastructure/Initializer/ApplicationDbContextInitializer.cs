@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Logging;
 using R7P.DeliveryCalculationService.Domain.Entities;
 
-namespace R7P.DeliveryCalculationService.Infrastructure.Initialiser;
+namespace R7P.DeliveryCalculationService.Infrastructure.Initializer;
 
 public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitializer> logger, ApplicationDbContext context)
 {
     private readonly ILogger<ApplicationDbContextInitializer> _logger = logger;
     private readonly ApplicationDbContext _context = context;
 
-    public async Task InitialiseAsync()
+    public async Task InitializeAsync()
     {
         try
         {
@@ -95,6 +95,12 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
                 DepartureAddress = planets[6],
                 DestinationAddress = planets[7],
                 Distance = 17,
+            });
+
+            _context.Segments.Add(new Segment {
+                DepartureAddress = planets[7],
+                DestinationAddress = planets[0],
+                Distance = 0.5,
             });
 
             await _context.SaveChangesAsync();

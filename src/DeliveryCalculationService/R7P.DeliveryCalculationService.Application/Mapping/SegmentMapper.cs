@@ -7,5 +7,7 @@ namespace R7P.DeliveryCalculationService.Application.Mapping
     {
         public static partial Dtos.SegmentDto ToDto(Domain.Entities.Segment segment);
         public static partial Domain.Entities.Segment ToDomain(Dtos.SegmentDto segmentDto);
+
+        public static partial Dtos.SegmentDto[] ToDto(Domain.Entities.Segment[] segment);
     }
 }

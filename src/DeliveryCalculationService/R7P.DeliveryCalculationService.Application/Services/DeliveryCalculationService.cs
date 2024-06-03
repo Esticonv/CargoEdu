@@ -11,7 +11,7 @@ public class DeliveryCalculationService(
     ICalculationRepository calculationRepository) : IDeliveryCalculationService
 {
     private readonly ISegmentRepository _segmentRepository = segmentRepository;
-    //private readonly IAddressRepository _addressRepository = addressRepository;
+    private readonly IAddressRepository _addressRepository = addressRepository;
     private readonly ICalculationRepository _calculationRepository = calculationRepository;
 
     /*public async Task<SegmentDto[]> GetAll(CancellationToken ct = default)
@@ -33,19 +33,54 @@ public class DeliveryCalculationService(
         return CalculationMapper.ToDto(calculation);
     }
 
-    public async Task<SegmentDto> GetDistance(string departureAddress, string destinationAddress)
+    public async Task<SegmentDto[]> GetDistanceAsync(string departureAddress, string destinationAddress)
     {
-        var segment = _segmentRepository.GetAll(noTracking: true).Where(x => 
-            (x.DestinationAddress.AddressInfo == departureAddress && x.DepartureAddress.AddressInfo == destinationAddress) ||
-            (x.DestinationAddress.AddressInfo == destinationAddress && x.DepartureAddress.AddressInfo == departureAddress)).FirstOrDefault();
+        //линейный обход всех сегментов
 
-        if (segment is not null) {
-            var result = Mapping.SegmentMapper.ToDto(segment) with { Id = -1 };
-            return result;
+        var segments = (await _segmentRepository.GetAllAsync(CancellationToken.None, asNoTracking: true)).ToList();
+
+        var start = segments.FirstOrDefault(x => HasAddress(x, departureAddress));
+
+        var path = new List<Segment> {
+            start
+        };
+        string lastAddress = Another(start, departureAddress);
+        
+        segments.Remove(start);
+                
+        while (true) {
+            if(lastAddress == destinationAddress) break;
+
+            var next = segments.FirstOrDefault(x => HasAddress(x, lastAddress));
+            if (next != null) {
+                path.Add(next);
+                lastAddress = Another(next, lastAddress);
+                segments.Remove(next);
+            }
+            else {
+                throw new InvalidOperationException("Path not founded");
+            }
+            
+        }
+        return SegmentMapper.ToDto([..path]);
+    }
+
+    private static bool HasAddress(Segment segment, string adress)
+    {
+        return segment.DepartureAddress.AddressInfo == adress || segment.DestinationAddress.AddressInfo == adress;
+    }
+
+    private static string Another(Segment segment, string from)
+    {
+        if (segment.DepartureAddress.AddressInfo == from) {
+            return segment.DestinationAddress.AddressInfo;
+        }
+        else if (segment.DestinationAddress.AddressInfo == from) {
+            return segment.DepartureAddress.AddressInfo;
         }
         else {
-            return new SegmentDto { Distance = Double.NaN };
-        }        
+            throw new InvalidOperationException("Not found");
+        }
     }
 
     public async Task<CalculationDto[]> SaveCalculation(CalculationDto[] calculations)
@@ -65,5 +100,11 @@ public class DeliveryCalculationService(
         }
 
         return result.ToArray();
+    }
+
+    public async Task<AddressDto> GetAddressAsync(string address)
+    {
+        var result = await _addressRepository.GetAllAsync(CancellationToken.None, asNoTracking: true);
+        return AddressMapper.ToDto(result.FirstOrDefault(x => x.AddressInfo == address));
     }
 }
