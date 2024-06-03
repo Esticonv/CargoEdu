@@ -16,6 +16,7 @@ var rabbitMQHost = builder.Configuration.GetSection("ServicesUri").GetValue<stri
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<CreateOrderConsumer>();
+    x.AddConsumer<UpdateOrderConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {

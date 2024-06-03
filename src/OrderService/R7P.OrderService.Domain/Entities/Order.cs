@@ -14,7 +14,7 @@ public class Order : IEntity<long>
 
     public long CustomerId { get; set;}
 
-    public Customer Customer { get; set; }
+    public Customer? Customer { get; set; }
     
     public required string DepartureAddress { get; set; }
 

@@ -53,6 +53,9 @@ services:
 
    r7p.machinemanagerservice.webapi:
     image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-webapi
+    environment:
+     ServicesUri__RabbitMQ: r7p_rabbitmq
+     ServicesUri__OrderService_Order: http://r7p.orderservice.webapi:8080/order
     build:
      context: .
      dockerfile: src/MachineManagerService/WebApi/Dockerfile
@@ -67,6 +70,7 @@ services:
     image: ${DOCKER_REGISTRY-}r7p-machinemanagerservice-simulator
     environment:
      ServicesUri__MachineManagerService_Machine: http://r7p.machinemanagerservice.webapi:8080/machine
+     ServicesUri__MachineManagerService_MachineTask: http://r7p.machinemanagerservice.webapi:8080/machinetask
     build:
      context: .
      dockerfile: src/MachineManagerService/WebSimulator/Dockerfile

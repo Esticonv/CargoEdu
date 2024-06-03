@@ -2,7 +2,7 @@
 
 namespace R7P.MachineManagerService.Application.Interfaces
 {
-    public interface IMachineRepository : IRepository<Machine, long>
+    public interface IMachineTaskRepository : IRepository<MachineTask, long>
     {
     }
 }

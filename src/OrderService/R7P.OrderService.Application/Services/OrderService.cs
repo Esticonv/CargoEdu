@@ -3,13 +3,11 @@ using R7P.OrderService.Application.Repositories;
 
 namespace R7P.OrderService.Application.Services;
 
-public class OrderService(IOrderRepository addressRepository) : IOrderService
+public class OrderService(IOrderRepository orderRepository) : IOrderService
 {
-    private readonly IOrderRepository _addressRepository = addressRepository;
-
     public async Task<OrderDto[]> GetAll()
     {
-        var orders = await _addressRepository.GetAllAsync(CancellationToken.None);
+        var orders = await orderRepository.GetAllAsync(CancellationToken.None);
         var result = orders.Select(x => Mapping.OrderMapper.ToDto(x)).ToArray();
 
         return result;
@@ -17,7 +15,7 @@ public class OrderService(IOrderRepository addressRepository) : IOrderService
 
     public async Task<OrderDto> GetById(long id)
     {
-        var order = await _addressRepository.GetAsync(id)
+        var order = await orderRepository.GetAsync(id)
             ?? throw new ArgumentException($"Не найден адрес с идентификатором {id}");
 
         return Mapping.OrderMapper.ToDto(order);
@@ -25,7 +23,16 @@ public class OrderService(IOrderRepository addressRepository) : IOrderService
 
     public async Task Add(OrderDto dto)
     {
-        await _addressRepository.AddAsync(Mapping.OrderMapper.ToDomain(dto));
-        await _addressRepository.SaveChangesAsync();
+        await orderRepository.AddAsync(Mapping.OrderMapper.ToDomain(dto));
+        await orderRepository.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(long orderId, OrderStatus orderStatus)
+    {
+        var order = await orderRepository.GetAsync(orderId)
+            ?? throw new ArgumentException($"Не найден адрес с идентификатором {orderId}");
+
+        order.Status = (Domain.Enums.OrderStatus)orderStatus;
+        await orderRepository.SaveChangesAsync();
     }
 }

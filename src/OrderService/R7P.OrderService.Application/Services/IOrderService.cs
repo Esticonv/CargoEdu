@@ -9,4 +9,5 @@ public interface IOrderService
     Task<OrderDto[]> GetAll();
 
     Task Add(OrderDto dto);
+    Task UpdateAsync(long orderId, OrderStatus orderStatus);
 }

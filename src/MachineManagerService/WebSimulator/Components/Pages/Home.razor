@@ -13,34 +13,33 @@
 
 <h1>Машины</h1>
 
-<button @onclick="OnStartButtomClick"> Start </button>
-<button @onclick="OnStopButtomClick" disabled> Stop </button>
+<button @onclick="OnStartButtomClick" disabled=@started> Start </button>
+<button @onclick="OnStopButtomClick" disabled=@(!started)> Stop </button>
 
 <p>Last update: @lastUpdate</p>
 
-<p>Запуск: @started, Ошибки: @exceptionMessage </p>
+<p>Ошибки: @exceptionMessage </p>
 
 @if (machines == null) {
     <p><em>Press start</em></p>
 }
 else {
     <ul>
-        @foreach (var machine in machines) {
-            <li>        
-                @machine.Name
+    @foreach (var machine in machines) {
+        <li>        
+        @machine.Name
 
-                @foreach(var task in machine.Tasks) {
-                    <p>@task.ToString();</p>
-                }
-                @foreach (var cargo in machine.Сargoes) {
-                    <p>@cargo.ToString();</p>
-                }
-            </li>
+        @foreach(var task in machine.Tasks) {
+            <p>@task.ToString();</p>
+            <progress value=@task.Progress> </progress>
         }
+        @foreach (var cargo in machine.Сargoes) {
+            <p>@cargo.ToString();</p>
+        }
+        </li>
+    }
     </ul>
 }
-
-
 
 
 
@@ -51,45 +50,57 @@ else {
     private string? exceptionMessage;
 
     private string lastUpdate=string.Empty;
-
-    private CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-    private CancellationToken cancellationToken;
+    private string? _machineAddress;
+    private string? _machineTaskAddress;
 
     protected override async Task OnInitializedAsync()
     {
-        cancellationToken = cancelTokenSource.Token;
-        Notifier.Notify += OnNotify;
-    }
-
-
-    protected override async Task OnParametersSetAsync()
-    {       
+        _machineAddress = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+        _machineTaskAddress = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_MachineTask");
+        await Timer.Start();
     }
 
     private void OnStartButtomClick()
     {
-        if (started == false)
-        {
-            started = true;
-            _ = Task.Run(Timer.Start, cancellationToken);
-        }
+        started = true;
+        Notifier.Notify += OnNotify;
+
     }
 
     private void OnStopButtomClick()
     {
         started = false;
-        cancelTokenSource.Cancel();
-        //Timer.Stop();
+        Notifier.Notify -= OnNotify;
+        machines = null;
     }
 
     public async Task OnNotify(string key, int value)
     {
         await InvokeAsync(() =>
         {
-            try {
-                var address = Configuration.GetSection("ServicesUri").GetValue<string>("MachineManagerService_Machine");
+            try {                
                 var http = ClientFactory.CreateClient();
-                machines = http.GetFromJsonAsync<MachineDto[]>(address).Result;
+                machines = http.GetFromJsonAsync<MachineDto[]>(_machineAddress).Result;
+
+                if (machines != null){
+                    foreach (var machine in machines){
+                        
+                        machine.Tasks.Remove(machine.Tasks.FirstOrDefault(x => x.TaskType == 0));//Remove IdleTask from display                        
+                        
+                        var movingTask = machine.Tasks.FirstOrDefault(x => x.TaskType == 1);
+                        if (movingTask != null) {
+                            if (movingTask.Progress < 1.0d) {
+                                movingTask.Progress += 0.1d;
+                            }
+                            if (movingTask.Progress >= 1.0d) {
+                                movingTask.Progress = 1.0d;
+                                movingTask.TaskType = 2;//Completed
+                            }
+                            http.PutAsJsonAsync(_machineTaskAddress, movingTask);
+                        }
+                        
+                    }
+                }
             }
             catch (Exception exception) {
                 exceptionMessage = exception.Message;
