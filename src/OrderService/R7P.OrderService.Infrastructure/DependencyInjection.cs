@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using R7P.OrderService.Infrastructure.Data.Initialiser;
+using R7P.OrderService.Infrastructure.Data.Initializer;
 using R7P.OrderService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using R7P.OrderService.Infrastructure.Data.Repositories;

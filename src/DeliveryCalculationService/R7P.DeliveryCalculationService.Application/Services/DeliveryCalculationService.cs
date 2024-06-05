@@ -35,8 +35,11 @@ public class DeliveryCalculationService(
 
     public async Task<SegmentDto[]> GetDistanceAsync(string departureAddress, string destinationAddress)
     {
-        //линейный обход всех сегментов
+        if (departureAddress == destinationAddress) {
+            throw new ArgumentException("Same origin and destination");
+        }
 
+        //линейный обход всех сегментов
         var segments = (await _segmentRepository.GetAllAsync(CancellationToken.None, asNoTracking: true)).ToList();
 
         var start = segments.FirstOrDefault(x => HasAddress(x, departureAddress));

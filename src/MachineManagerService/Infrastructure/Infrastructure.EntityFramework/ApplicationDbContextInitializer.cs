@@ -32,8 +32,7 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
                     Name="Slow and cheap machine",
                     CostPerDistance=1,
                     MaxSpeed=1,
-                    VolumeCapacity=1,
-                    WeightCapacity=1,
+                    Capacity=1,
                     Tasks = [
                         new MachineTask{                            
                         }
@@ -44,8 +43,7 @@ public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitial
                     Name = "Fast and expensive machine",
                     CostPerDistance = 4,
                     MaxSpeed = 2,
-                    VolumeCapacity = 2,
-                    WeightCapacity = 2,
+                    Capacity = 2,
                     Tasks = [
                         new MachineTask{
                         }

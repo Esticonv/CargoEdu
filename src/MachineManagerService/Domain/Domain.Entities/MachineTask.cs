@@ -6,6 +6,9 @@
         public long MachineId { get; set; }
         public virtual Machine? Machine {get;set;}
 
+        public long? CargoId { get; set; }
+        public virtual Cargo? Cargo { get; set; } 
+
         /// <summary>
         /// One machine can have 0 to many Task.
         /// Task executing by order. Lesser value - higher priority
