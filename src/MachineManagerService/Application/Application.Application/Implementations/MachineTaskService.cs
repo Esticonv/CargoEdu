@@ -10,6 +10,13 @@ namespace R7P.MachineManagerService.Application.Implementations
     {
         private readonly IMachineTaskRepository _machineTaskRepository = machineTaskRepository;
 
+        public async Task<int> GetLastTaskOrderValueAsync(long machineId)
+        {
+            return (await _machineTaskRepository.GetAllAsync(CancellationToken.None, asNoTracking: true)).
+                Where(task => task.MachineId == machineId).
+                Max(task => task.TaskOrder);
+        }
+
         public async Task<MachineTaskDto> GetByIdAsync(long id)
         {
             var machineTask = await _machineTaskRepository.GetAsync(id)

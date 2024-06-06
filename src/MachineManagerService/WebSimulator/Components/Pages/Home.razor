@@ -18,8 +18,6 @@
 
 <p>Last update: @lastUpdate</p>
 
-<p>Ошибки: @exceptionMessage </p>
-
 @if (machines == null) {
     <p><em>Press start</em></p>
 }
@@ -41,6 +39,10 @@ else {
     </ul>
 }
 
+@if (string.IsNullOrEmpty(exceptionMessage) == false)
+{
+    <p>Ошибки: @exceptionMessage </p>
+}
 
 
 @code {
@@ -87,7 +89,9 @@ else {
                         
                         machine.Tasks.Remove(machine.Tasks.FirstOrDefault(x => x.TaskType == 0));//Remove IdleTask from display                        
                         
-                        var movingTask = machine.Tasks.FirstOrDefault(x => x.TaskType == 1);
+                        var movingTask = machine.Tasks
+                            .OrderBy(x => x.TaskOrder)
+                            .FirstOrDefault(x => x.TaskType == 1);
                         if (movingTask != null) {
                             if (movingTask.Progress < 1.0d) {
                                 movingTask.Progress += 0.1d;

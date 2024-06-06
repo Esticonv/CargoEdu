@@ -58,8 +58,11 @@ namespace R7P.MachineManagerService.Application.Implementations
                             Cargo = new Models.CargoDto { 
                                 Destination=pendingOrder.DestinationAddress,
                                 Size=pendingOrder.CargoSize,
-                                CargoGuid=pendingOrder.CargoGuid},
-                            TaskType = 1
+                                CargoGuid=pendingOrder.CargoGuid,
+                                MachineId=pendingOrder.MachineId
+                            },
+                            TaskType = 1,
+                            TaskOrder = (await machineTaskService.GetLastTaskOrderValueAsync(pendingOrder.MachineId)) + 1
                         };
                         await machineTaskService.AddAsync(machineTaskDto);
 
