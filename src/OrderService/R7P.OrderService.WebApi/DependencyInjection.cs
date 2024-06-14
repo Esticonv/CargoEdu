@@ -1,4 +1,4 @@
-﻿using R7P.OrderService.Infrastructure.Data.Initialiser;
+﻿using R7P.OrderService.Infrastructure.Data.Initializer;
 
 namespace R7P.OrderService.WebApi;
 

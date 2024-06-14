@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using R7P.DeliveryCalculationService.Infrastructure.Initialiser;
+using R7P.DeliveryCalculationService.Infrastructure.Initializer;
 using Microsoft.EntityFrameworkCore;
 using R7P.DeliveryCalculationService.Infrastructure.Repositories;
 using R7P.DeliveryCalculationService.Application.Repositories;

@@ -1,4 +1,4 @@
-﻿using R7P.DeliveryCalculationService.Infrastructure.Initialiser;
+﻿using R7P.DeliveryCalculationService.Infrastructure.Initializer;
 
 namespace R7P.DeliveryCalculationService.WebApi;
 

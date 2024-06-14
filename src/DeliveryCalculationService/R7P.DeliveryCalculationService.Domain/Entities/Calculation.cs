@@ -4,6 +4,7 @@
     {
         public long Id { get; set; }
         public TimeSpan DeliveryTime { get; set; }
+        public TimeSpan EstimateTimeToStart { get; set; }
         public decimal Cost { get; set; }
 
         public long DepartureAddressId { get; set; }

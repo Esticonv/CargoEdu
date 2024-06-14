@@ -26,6 +26,7 @@ internal class CreateOrderConsumer(
             CustomerId = context.Message.CustomerId,
             MachineId = calculation.MachineId,
             CargoSize = calculation.CargoSize,
+            CargoGuid = Guid.NewGuid(),
             TotalPrice = calculation.Cost,
             DepartureAddress = calculation.DepartureAddress.AddressInfo,
             DestinationAddress = calculation.DestinationAddress.AddressInfo,

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace R7P.OrderService.Infrastructure.Data.Initialiser;
+namespace R7P.OrderService.Infrastructure.Data.Initializer;
 
-public static class InitialiserExtensions
+public static class InitializerExtensions
 {
     public static async Task InitialiseDatabaseAsync(this IServiceProvider serviceProvider)
     {

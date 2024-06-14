@@ -10,5 +10,6 @@ namespace R7P.MachineManagerService.Application.Interfaces
         Task<bool> DeleteAsync(long id);
 
         Task UpdateAsync(Models.MachineTaskDto machineTask);
+        Task<int> GetLastTaskOrderValueAsync(long machineId);
     }
 }

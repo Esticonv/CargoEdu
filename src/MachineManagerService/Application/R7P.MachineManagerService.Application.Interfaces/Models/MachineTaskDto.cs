@@ -1,4 +1,6 @@
-﻿namespace R7P.MachineManagerService.Application.Models
+﻿using R7P.MachineManagerService.Domain.Entities;
+
+namespace R7P.MachineManagerService.Application.Models
 {
     public class MachineTaskDto
     {
@@ -7,7 +9,8 @@
         public int TaskOrder { get; set; }
         public int TaskType { get; set; }
         public string Departure { set; get; }
-        public string Destination { set; get; }
+        public string? Destination { set; get; }
         public double Progress { set; get; }
+        public CargoDto? Cargo { get; set; }
     }
 }

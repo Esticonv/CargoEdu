@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using R7P.OrderService.Domain.Entities;
 
-namespace R7P.OrderService.Infrastructure.Data.Initialiser;
+namespace R7P.OrderService.Infrastructure.Data.Initializer;
 
 public class ApplicationDbContextInitializer(ILogger<ApplicationDbContextInitializer> logger, ApplicationDbContext context)
 {

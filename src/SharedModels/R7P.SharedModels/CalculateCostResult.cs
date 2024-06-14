@@ -12,5 +12,6 @@ namespace R7P.SharedModels
         public long Id { get; set; }
         public TimeSpan DeliveryTime { get; set; }
         public decimal Cost { get; set; }
+        public TimeSpan EstimateTimeToStart { get; set; }
     }
 }

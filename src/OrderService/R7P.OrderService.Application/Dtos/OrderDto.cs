@@ -9,6 +9,7 @@ public class OrderDto
     public required OrderStatus Status { get; set; }
 
     public required double CargoSize { get; set; }
+    public required Guid CargoGuid { get; set; }
 
     public long CustomerId { get; set; }
 

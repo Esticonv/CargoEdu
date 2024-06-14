@@ -9,6 +9,8 @@ public class Order : IEntity<long>
     public required decimal TotalPrice { get; set; }
 
     public required OrderStatus Status { get; set;}
+
+    public required Guid CargoGuid { get; set; }
         
     public required double CargoSize  { get; set; }
 
