@@ -2,8 +2,6 @@ using R7P.DeliveryCalculationService.Application.Dtos;
 using R7P.DeliveryCalculationService.Application.Mapping;
 using R7P.DeliveryCalculationService.Application.Repositories;
 using R7P.DeliveryCalculationService.Domain.Entities;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
 
 namespace R7P.DeliveryCalculationService.Application.Services;
 
@@ -33,44 +31,7 @@ public class DeliveryCalculationService(
             ?? throw new ArgumentException($"Не найден расчёт доставки с идентификатором {id}");
 
         return CalculationMapper.ToDto(calculation);
-    }
-
-    public async Task<SegmentDto[]> GetDistanceAsync2(string departureAddress, string destinationAddress)
-    {
-        if (departureAddress == destinationAddress) {
-            throw new ArgumentException("Same origin and destination");
-        }
-
-        //линейный обход всех сегментов
-        var segments = (await _segmentRepository.GetAllAsync(CancellationToken.None, asNoTracking: true)).ToList();
-
-        var start = segments.FirstOrDefault(x => HasAddress(x, departureAddress));
-
-        var path = new List<Segment> {
-            start
-        };
-        string lastAddress = Another(start, departureAddress);
-        
-        segments.Remove(start);
-                
-        while (true) {
-            if(lastAddress == destinationAddress) break;
-
-            var next = segments.FirstOrDefault(x => HasAddress(x, lastAddress));
-            if (next != null) {
-                path.Add(next);
-                lastAddress = Another(next, lastAddress);
-                segments.Remove(next);
-            }
-            else {
-                throw new InvalidOperationException("Path not founded");
-            }
-            
-        }
-        return SegmentMapper.ToDto([..path]);
-    }
-
-
+    } 
     record class AddressAndTag(Address Address, double Tag, bool Visited=false) 
     {
         public Address Address { get; set; } = Address;
